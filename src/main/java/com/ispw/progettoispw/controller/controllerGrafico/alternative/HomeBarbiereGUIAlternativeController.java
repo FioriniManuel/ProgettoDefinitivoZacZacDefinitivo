@@ -1,5 +1,6 @@
 package com.ispw.progettoispw.controller.controllerGrafico.alternative;
 
+import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
 import com.ispw.progettoispw.controller.controllerApplicativo.CouponController;
 import com.ispw.progettoispw.controller.controllerApplicativo.LoginController;
@@ -8,7 +9,6 @@ import com.ispw.progettoispw.controller.controllerGrafico.GraphicController;
 import com.ispw.progettoispw.enu.AppointmentStatus;
 import com.ispw.progettoispw.exception.OggettoInvalidoException;
 import com.ispw.progettoispw.exception.ValidazioneException;
-import com.ispw.progettoispw.bean.BookingBean;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -23,129 +23,172 @@ import java.util.function.UnaryOperator;
 
 public class HomeBarbiereGUIAlternativeController extends GraphicController {
 
+    private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern("dd/MM/uuuu")
+            .withResolverStyle(ResolverStyle.STRICT);
+    private static final DateTimeFormatter TF = DateTimeFormatter.ofPattern("HH:mm");
+
+    private static final String PLACEHOLDER_NO_APPOINTMENTS = "Nessuna prenotazione per la data selezionata.";
+    private static final String MSG_TECH_ERROR = "Errore tecnico.";
+    private static final String MSG_ALREADY_CANCELLED = "Appuntamento già cancellato.";
+    private static final String MSG_ALREADY_COMPLETED = "Appuntamento già completato.";
+    private static final String MSG_CANNOT_CANCEL_COMPLETED = "Impossibile cancellare: già completato.";
+
     @FXML private Label nomeBarbiere;
     @FXML private Button btnEsci;
 
     @FXML private TextField dateTextField; // dd/MM/yyyy
     @FXML private ListView<BookingBean> appointmentsList;
 
-    private final LoginController login = new LoginController();
     private final BookingController bookingController = new BookingController();
     private final CouponController couponController = new CouponController();
     private final LoyaltyController loyal = new LoyaltyController();
 
     private String barberId;
 
-    private final DateTimeFormatter DF = DateTimeFormatter.ofPattern("dd/MM/uuuu")
-            .withResolverStyle(ResolverStyle.STRICT);
-    private final DateTimeFormatter TF = DateTimeFormatter.ofPattern("HH:mm");
-
     @FXML
     private void initialize() {
-        barberId = LoginController.getId();
-        String barberName = LoginController.getName();
-        nomeBarbiere.setText((barberName != null && !barberName.isBlank()) ? barberName : "Barbiere");
+        setupBarberInfo();
+        setupLogout();
 
-        btnEsci.setOnAction(e -> doLogout());
-
-        if (appointmentsList != null) {
-            appointmentsList.setPlaceholder(new Label("Nessuna prenotazione per la data selezionata."));
-        }
-
-        if (dateTextField != null) {
-            dateTextField.setTextFormatter(new TextFormatter<>(dateMaskFilter()));
-            LocalDate today = LocalDate.now();
-            dateTextField.setText(DF.format(today));
-            dateTextField.setOnAction(e -> applyDateFromField());
-            dateTextField.focusedProperty().addListener((obs, was, is) -> {
-                if (is) return;      // guard clause: quando ha focus non fare nulla
-                applyDateFromField(); // quando perde focus applica la data
-            });
-
-            ;
-        }
-
-        if (appointmentsList != null) {
-            appointmentsList.setCellFactory(list -> new ListCell<>() {
-                private final Label lbl = new Label();
-                private final Button completeBtn = new Button("Completa");
-                private final Button cancelBtn = new Button("Cancella");
-                private final HBox box = new HBox(10, lbl, completeBtn, cancelBtn);
-
-                {
-                    cancelBtn.setStyle("-fx-background-color: #ff0b0b; -fx-text-fill: white;");
-                    completeBtn.setStyle("-fx-background-color: #63c755; -fx-text-fill: white;");
-
-                    completeBtn.setOnAction(e -> onComplete(getItem(), lbl, completeBtn, cancelBtn));
-                    cancelBtn.setOnAction(e -> onCancel(getItem(), lbl, completeBtn, cancelBtn));
-                }
-
-                @Override
-                protected void updateItem(BookingBean b, boolean empty) {
-                    super.updateItem(b, empty);
-                    if (empty || b == null) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        lbl.setText(buildRowText(b));
-                        completeBtn.setDisable(b.getStatus() == AppointmentStatus.CANCELLED
-                                || b.getStatus() == AppointmentStatus.COMPLETED);
-                        cancelBtn.setDisable(b.getStatus() == AppointmentStatus.CANCELLED
-                                || b.getStatus() == AppointmentStatus.COMPLETED);
-                        setGraphic(box);
-                    }
-                }
-            });
-        }
+        setupAppointmentsList();
+        setupDateField();
 
         applyDateFromField();
     }
 
-    private void onComplete(BookingBean b, Label lbl, Button completeBtn, Button cancelBtn) {
+    private void setupBarberInfo() {
+        barberId = LoginController.getId();
+
+        String barberName = LoginController.getName();
+        String displayName = (barberName != null && !barberName.isBlank()) ? barberName : "Barbiere";
+        nomeBarbiere.setText(displayName);
+    }
+
+    private void setupLogout() {
+        btnEsci.setOnAction(e -> doLogout());
+    }
+
+    private void setupAppointmentsList() {
+        if (appointmentsList == null) return;
+
+        appointmentsList.setPlaceholder(new Label(PLACEHOLDER_NO_APPOINTMENTS));
+        appointmentsList.setCellFactory(list -> new AppointmentCell());
+    }
+
+    private void setupDateField() {
+        if (dateTextField == null) return;
+
+        LocalDate today = LocalDate.now();
+        dateTextField.setTextFormatter(new TextFormatter<>(dateMaskFilter()));
+        dateTextField.setText(DF.format(today));
+
+        dateTextField.setOnAction(e -> applyDateFromField());
+        dateTextField.focusedProperty().addListener((obs, was, is) -> {
+            if (is) return; // guard clause -> riduce complessità
+            applyDateFromField();
+        });
+    }
+
+    private final class AppointmentCell extends ListCell<BookingBean> {
+
+        private final Label lbl = new Label();
+        private final Button completeBtn = new Button("Completa");
+        private final Button cancelBtn = new Button("Cancella");
+        private final HBox box = new HBox(10, lbl, completeBtn, cancelBtn);
+
+        private AppointmentCell() {
+            styleButtons();
+            wireActions();
+        }
+
+        private void styleButtons() {
+            cancelBtn.setStyle("-fx-background-color: #ff0b0b; -fx-text-fill: white;");
+            completeBtn.setStyle("-fx-background-color: #63c755; -fx-text-fill: white;");
+        }
+
+        private void wireActions() {
+            completeBtn.setOnAction(e -> onComplete(getItem(), this::render));
+            cancelBtn.setOnAction(e -> onCancel(getItem(), this::render));
+        }
+
+        @Override
+        protected void updateItem(BookingBean b, boolean empty) {
+            super.updateItem(b, empty);
+            if (empty || b == null) {
+                setGraphic(null);
+                setText(null);
+                return;
+            }
+            render();
+        }
+
+        private void render() {
+            BookingBean b = getItem();
+            if (b == null) {
+                setGraphic(null);
+                setText(null);
+                return;
+            }
+
+            lbl.setText(buildRowText(b));
+            updateButtons(b);
+            setGraphic(box);
+        }
+
+        private void updateButtons(BookingBean b) {
+            boolean disable = isFinalState(b.getStatus());
+            completeBtn.setDisable(disable);
+            cancelBtn.setDisable(disable);
+        }
+    }
+
+    private boolean isFinalState(AppointmentStatus status) {
+        return status == AppointmentStatus.CANCELLED || status == AppointmentStatus.COMPLETED;
+    }
+
+    private void onComplete(BookingBean b, Runnable refreshUi) {
         if (b == null) return;
 
-        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo("Appuntamento già cancellato."); return; }
-        if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo("Appuntamento già completato."); return; }
+        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo(MSG_ALREADY_CANCELLED); return; }
+        if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo(MSG_ALREADY_COMPLETED); return; }
 
         try {
             bookingController.updateAppointmentStatus(b.getAppointmentId(), AppointmentStatus.COMPLETED);
             b.setStatus(AppointmentStatus.COMPLETED);
 
-            int pt = couponController.computePointsToAward(b.getPrezzoTotale());
-            if (b.getClienteId() != null && !b.getClienteId().isBlank()) {
-                loyal.addPoints(b.getClienteId(), pt);
-            }
+            addLoyaltyPointsIfPossible(b);
 
-            lbl.setText(buildRowText(b));
-            completeBtn.setDisable(true);
-            cancelBtn.setDisable(true);
-
+            refreshUi.run();
         } catch (ValidazioneException | OggettoInvalidoException ex) {
             showError(ex.getMessage());
         } catch (Exception ex) {
-            showError("Errore tecnico.");
+            showError(MSG_TECH_ERROR);
         }
     }
 
-    private void onCancel(BookingBean b, Label lbl, Button completeBtn, Button cancelBtn) {
+    private void onCancel(BookingBean b, Runnable refreshUi) {
         if (b == null) return;
 
-        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo("Appuntamento già cancellato."); return; }
-        if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo("Impossibile cancellare: già completato."); return; }
+        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo(MSG_ALREADY_CANCELLED); return; }
+        if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo(MSG_CANNOT_CANCEL_COMPLETED); return; }
 
         try {
             bookingController.updateAppointmentStatus(b.getAppointmentId(), AppointmentStatus.CANCELLED);
             b.setStatus(AppointmentStatus.CANCELLED);
 
-            lbl.setText(buildRowText(b));
-            completeBtn.setDisable(true);
-            cancelBtn.setDisable(true);
-
+            refreshUi.run();
         } catch (ValidazioneException | OggettoInvalidoException ex) {
             showError(ex.getMessage());
         } catch (Exception ex) {
-            showError("Errore tecnico.");
+            showError(MSG_TECH_ERROR);
         }
+    }
+
+    private void addLoyaltyPointsIfPossible(BookingBean b) {
+        if (b.getClienteId() == null || b.getClienteId().isBlank()) return;
+
+        int pt = couponController.computePointsToAward(b.getPrezzoTotale());
+        loyal.addPoints(b.getClienteId(), pt);
     }
 
     private UnaryOperator<Change> dateMaskFilter() {
@@ -160,24 +203,30 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
     private void applyDateFromField() {
         if (appointmentsList == null || dateTextField == null) return;
 
-        String raw = dateTextField.getText() == null ? "" : dateTextField.getText().trim();
-        LocalDate day;
-        try {
-            day = LocalDate.parse(raw, DF);
-        } catch (Exception ex) {
-            day = LocalDate.now();
-            dateTextField.setText(DF.format(day));
-            showInfo("Formato data non valido. Usa dd/MM/yyyy (es. " + DF.format(day) + ").");
-        }
-
+        LocalDate day = parseOrFallbackDate(dateTextField.getText());
+        dateTextField.setText(DF.format(day));
         loadAppointments(day);
     }
 
+    private LocalDate parseOrFallbackDate(String rawInput) {
+        String raw = rawInput == null ? "" : rawInput.trim();
+        try {
+            return LocalDate.parse(raw, DF);
+        } catch (Exception ex) {
+            LocalDate today = LocalDate.now();
+            showInfo("Formato data non valido. Usa dd/MM/yyyy (es. " + DF.format(today) + ").");
+            return today;
+        }
+    }
+
     private void loadAppointments(LocalDate day) {
+        if (appointmentsList == null) return;
+
         if (barberId == null || barberId.isBlank()) {
             appointmentsList.setItems(FXCollections.observableArrayList());
             return;
         }
+
         List<BookingBean> list = bookingController.listAppointmentsForBarberOnDayVM(barberId, day);
         appointmentsList.setItems(FXCollections.observableArrayList(list));
     }
@@ -185,10 +234,14 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
     private String buildRowText(BookingBean b) {
         String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
                 ? b.getServiceName() : "Servizio";
+
         String range = (b.getStartTime() == null || b.getEndTime() == null)
-                ? "-" : (b.getStartTime().format(TF) + "-" + b.getEndTime().format(TF));
+                ? "-"
+                : (b.getStartTime().format(TF) + "-" + b.getEndTime().format(TF));
+
         String price = (b.getPrezzoTotale() == null) ? "-" : (b.getPrezzoTotale().toPlainString() + " €");
         String stato = (b.getStatus() == null) ? "-" : b.getStatus().name();
+
         return nomeServizio + " | " + range + " | " + price + " | " + stato;
     }
 
