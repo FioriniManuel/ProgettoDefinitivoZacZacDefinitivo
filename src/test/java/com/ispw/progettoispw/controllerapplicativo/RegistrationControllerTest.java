@@ -115,8 +115,7 @@ class RegistrationControllerTest {
                 () -> controller.register(bean)
         );
 
-        // opzionale: se nel tuo DuplicateCredentialException metti un messaggio chiaro
-        // assertTrue(ex.getMessage().toLowerCase().contains("email"));
+
 
         // assicurati che NON abbia creato il cliente
         assertTrue(findClienteByEmail("dup@example.com").isEmpty());
@@ -164,8 +163,6 @@ class RegistrationControllerTest {
                 () -> controller.register(bean)
         );
 
-        // opzionale: se vuoi controllare che contenga qualcosa di utile
-        // assertTrue(ex.getMessage().toLowerCase().contains("password"));
 
         assertTrue(findClienteByEmail("bad@example.com").isEmpty());
     }
