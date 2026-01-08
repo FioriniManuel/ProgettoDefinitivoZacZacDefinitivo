@@ -92,7 +92,7 @@ public class PaymentBean {
         // CVV
         if (isBlank(cvv)) {
             errs.add("Inserisci il CVV.");
-        } else if (cvv.length() < 3 || cvv.length() > 4) {
+        } else if (cvv.length() != 3 ) {
             errs.add("CVV non valido (3 o 4 cifre).");
         }
 
