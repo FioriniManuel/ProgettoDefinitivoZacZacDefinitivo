@@ -1,8 +1,8 @@
 package com.ispw.progettoispw.controller.controllerGrafico;
 
-import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
 import com.ispw.progettoispw.bean.BarbiereBean;
 import com.ispw.progettoispw.bean.BookingBean;
+import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class OrarioGUIController extends GraphicController {
+
+    private static final DateTimeFormatter HHMM = DateTimeFormatter.ofPattern("HH:mm");
 
     @FXML private DatePicker datePicker;
     @FXML private ComboBox<LocalTime> timeCombo;
@@ -26,67 +28,98 @@ public class OrarioGUIController extends GraphicController {
     private void initialize() {
         clear(warningLabel);
 
-        bookingBean = bookingController.getBookingFromSession();
-        if (bookingBean == null || bookingBean.getServizioId() == null || bookingBean.getServizioId().isBlank()) {
-            showWarn("Dati prenotazione mancanti. Torna allo step precedente.");
+        if (!loadBookingBean()) {
             return;
         }
 
-        datePicker.setValue(LocalDate.now());
-
-        datePicker.setDayCellFactory(dp -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate d, boolean empty) {
-                super.updateItem(d, empty);
-                if (empty || d == null) return;
-                setDisable(d.isBefore(LocalDate.now()));
-            }
-        });
-
-        datePicker.valueProperty().addListener((obs, oldD, newD) -> onDateChanged(newD));
-        barberCombo.valueProperty().addListener((obs, oldB, newB) -> onBarberChanged(newB));
-
-        barberCombo.setCellFactory(list -> new ListCell<>() {
-            @Override protected void updateItem(BarbiereBean vm, boolean empty) {
-                super.updateItem(vm, empty);
-                setText(empty || vm == null ? null : vm.getDisplayName());
-            }
-        });
-        barberCombo.setButtonCell(new ListCell<>() {
-            @Override protected void updateItem(BarbiereBean vm, boolean empty) {
-                super.updateItem(vm, empty);
-                setText(empty || vm == null ? null : vm.getDisplayName());
-            }
-        });
-
-        DateTimeFormatter HHMM = DateTimeFormatter.ofPattern("HH:mm");
-        timeCombo.setCellFactory(list -> new ListCell<>() {
-            @Override protected void updateItem(LocalTime t, boolean empty) {
-                super.updateItem(t, empty);
-                setText(empty || t == null ? null : t.format(HHMM));
-            }
-        });
-        timeCombo.setButtonCell(new ListCell<>() {
-            @Override protected void updateItem(LocalTime t, boolean empty) {
-                super.updateItem(t, empty);
-                setText(empty || t == null ? null : t.format(HHMM));
-            }
-        });
+        setupDatePicker();
+        setupListeners();
+        setupBarberCombo();
+        setupTimeCombo();
 
         onDateChanged(datePicker.getValue());
     }
 
+    private boolean loadBookingBean() {
+        bookingBean = bookingController.getBookingFromSession();
+        if (isBookingMissing(bookingBean)) {
+            showWarn("Dati prenotazione mancanti. Torna allo step precedente.");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isBookingMissing(BookingBean bean) {
+        return bean == null
+                || bean.getServizioId() == null
+                || bean.getServizioId().isBlank();
+    }
+
+    private void setupDatePicker() {
+        LocalDate today = LocalDate.now();
+        datePicker.setValue(today);
+        datePicker.setDayCellFactory(dp -> createDateCell(today));
+    }
+
+    private DateCell createDateCell(LocalDate today) {
+        return new DateCell() {
+            @Override
+            public void updateItem(LocalDate d, boolean empty) {
+                super.updateItem(d, empty);
+                if (empty || d == null) return;
+                setDisable(d.isBefore(today));
+            }
+        };
+    }
+
+    private void setupListeners() {
+        datePicker.valueProperty().addListener((obs, oldD, newD) -> onDateChanged(newD));
+        barberCombo.valueProperty().addListener((obs, oldB, newB) -> onBarberChanged(newB));
+    }
+
+    private void setupBarberCombo() {
+        ListCell<BarbiereBean> cell = displayNameCell();
+        barberCombo.setCellFactory(list -> displayNameCell());
+        barberCombo.setButtonCell(cell);
+    }
+
+    private ListCell<BarbiereBean> displayNameCell() {
+        return new ListCell<>() {
+            @Override
+            protected void updateItem(BarbiereBean vm, boolean empty) {
+                super.updateItem(vm, empty);
+                setText((empty || vm == null) ? null : vm.getDisplayName());
+            }
+        };
+    }
+
+    private void setupTimeCombo() {
+        ListCell<LocalTime> cell = timeCell();
+        timeCombo.setCellFactory(list -> timeCell());
+        timeCombo.setButtonCell(cell);
+    }
+
+    private ListCell<LocalTime> timeCell() {
+        return new ListCell<>() {
+            @Override
+            protected void updateItem(LocalTime t, boolean empty) {
+                super.updateItem(t, empty);
+                setText((empty || t == null) ? null : t.format(HHMM));
+            }
+        };
+    }
+
     private void onDateChanged(LocalDate newDate) {
         clearWarning();
-        timeCombo.getItems().clear();
+        clearTimeItems();
 
         if (newDate == null) {
-            barberCombo.getItems().clear();
+            clearBarberItems();
             return;
         }
 
-        List<BarbiereBean> disponibili =
-                bookingController.availableBarbersVM(newDate, bookingBean.getServizioId());
+        List<BarbiereBean> disponibili = bookingController
+                .availableBarbersVM(newDate, bookingBean.getServizioId());
 
         barberCombo.setItems(FXCollections.observableArrayList(disponibili));
 
@@ -97,11 +130,10 @@ public class OrarioGUIController extends GraphicController {
 
     private void onBarberChanged(BarbiereBean newBarber) {
         clearWarning();
-        timeCombo.getItems().clear();
+        clearTimeItems();
 
         LocalDate day = datePicker.getValue();
-        if (newBarber == null || day == null) {
-            if (day == null) showWarn("Seleziona prima una data.");
+        if (!isSelectionValid(day, newBarber)) {
             return;
         }
 
@@ -113,6 +145,22 @@ public class OrarioGUIController extends GraphicController {
         if (libres.isEmpty()) {
             showWarn("Nessun orario disponibile per il professionista selezionato.");
         }
+    }
+
+    private boolean isSelectionValid(LocalDate day, BarbiereBean barber) {
+        if (day == null) {
+            showWarn("Seleziona prima una data.");
+            return false;
+        }
+        return barber != null;
+    }
+
+    private void clearTimeItems() {
+        if (timeCombo != null) timeCombo.getItems().clear();
+    }
+
+    private void clearBarberItems() {
+        if (barberCombo != null) barberCombo.getItems().clear();
     }
 
     @FXML
@@ -129,19 +177,38 @@ public class OrarioGUIController extends GraphicController {
         BarbiereBean barber = barberCombo.getValue();
         LocalTime start = timeCombo.getValue();
 
-        if (day == null)    { showWarn("Seleziona una data."); return; }
-        if (barber == null) { showWarn("Seleziona un professionista."); return; }
-        if (start == null)  { showWarn("Seleziona un orario."); return; }
+        if (!validateFinalSelection(day, barber, start)) {
+            return;
+        }
 
+        updateBookingBean(day, barber, start);
+        bookingController.saveBookingToSession(bookingBean);
+
+        switchSafe("RiepilogoView.fxml", "Riepilogo");
+    }
+
+    private boolean validateFinalSelection(LocalDate day, BarbiereBean barber, LocalTime start) {
+        if (day == null) {
+            showWarn("Seleziona una data.");
+            return false;
+        }
+        if (barber == null) {
+            showWarn("Seleziona un professionista.");
+            return false;
+        }
+        if (start == null) {
+            showWarn("Seleziona un orario.");
+            return false;
+        }
+        return true;
+    }
+
+    private void updateBookingBean(LocalDate day, BarbiereBean barber, LocalTime start) {
         bookingBean.setDay(day);
         bookingBean.setBarbiereId(barber.getId());
         bookingBean.setBarbiereDisplay(barber.getDisplayName());
         bookingBean.setStartTime(start);
         bookingBean.computeEndTime();
-
-        bookingController.saveBookingToSession(bookingBean);
-
-        switchSafe("RiepilogoView.fxml", "Riepilogo");
     }
 
     private void showWarn(String msg) {
