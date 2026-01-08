@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllerGrafico.alternative.RegistrazioneBarberGUIAlternativeController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllergrafico.alternative.RegistrazioneBarberGUIAlternativeController">
     <children>
         <Label alignment="CENTER" prefHeight="54.0" prefWidth="600.0" text="Registrazione Parrucchiere ">
             <font>

@@ -12,8 +12,8 @@ module com.ispw.progettoispw {
 
 
 
-    exports com.ispw.progettoispw.controller.controllerGrafico;
-    opens com.ispw.progettoispw.controller.controllerGrafico to javafx.fxml;
+    exports com.ispw.progettoispw.controller.controllergrafico;
+    opens com.ispw.progettoispw.controller.controllergrafico to javafx.fxml;
 
     exports com.ispw.progettoispw.enu;
     opens com.ispw.progettoispw.enu to javafx.fxml;
@@ -24,6 +24,6 @@ module com.ispw.progettoispw {
 
 
     opens com.ispw.progettoispw.dao to com.google.gson;
-    exports com.ispw.progettoispw.controller.controllerGrafico.alternative;
-    opens com.ispw.progettoispw.controller.controllerGrafico.alternative to javafx.fxml;
+    exports com.ispw.progettoispw.controller.controllergrafico.alternative;
+    opens com.ispw.progettoispw.controller.controllergrafico.alternative to javafx.fxml;
 }

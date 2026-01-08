@@ -1,6 +1,6 @@
 package com.ispw.progettoispw.bean;
 
-import com.ispw.progettoispw.entity.PrizeOption;
+
 import java.util.List;
 
 public class FidelityBean {
