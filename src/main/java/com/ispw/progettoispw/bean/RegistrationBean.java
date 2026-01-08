@@ -86,27 +86,24 @@ public class RegistrationBean {
 
         if (isBlank(email) || !EMAIL_RX.matcher(email).matches())
             errors.add("Email non valida");
+        String norm=normalizePhone( phoneNumber);
 
-        if (isBlank(phoneNumber)){
-            errors.add("Telefono obbligatorio");}
-        else{ String norm=normalizePhone( phoneNumber);
-            if (!IT_MOBILE_RX.matcher(norm).matches()){
-                errors.add("Telefono non valido.Inserisci 10 cifre Italiane.");}
-                else { this.phoneNumber=norm;}
-            }
+        if (isBlank(phoneNumber) || !IT_MOBILE_RX.matcher(norm).matches()){
+            errors.add("Telefono non inserito o Telefono non valido.Inserisci 10 cifre Italiane.");}
+        else { this.phoneNumber=norm;}
+
         if (isBlank(password) || password.length() < 8 || password.length() > 16)
             errors.add("Password tra 8 e 16 caratteri");
 
         if (!safeEquals(password, repeatPassword))
             errors.add("Le password non coincidono");
 
-        if (!(isClient() || isBarber()))
-            errors.add("Tipo utente non valido");
+
 
         if (isBarber()) {
             if (specializzazione==null)
                 errors.add("Specializzazione obbligatoria per i barbieri");
-            if (active == null) active = Boolean.TRUE; // default
+            active = Boolean.TRUE; // default
         }
 
         return errors;
