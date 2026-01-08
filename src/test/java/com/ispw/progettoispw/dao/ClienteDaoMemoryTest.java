@@ -51,18 +51,28 @@ class ClienteDaoMemoryTest {
     @Test
     void create_duplicateEmail_throws() {
         dao.create(nuovoCliente("C1", "dup@example.com", "3201111111"));
-        IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
-                dao.create(nuovoCliente("C2", "dup@example.com", "3202222222"))
+
+        Cliente clienteDuplicato = nuovoCliente("C2", "dup@example.com", "3202222222");
+
+        IllegalStateException ex = assertThrows(
+                IllegalStateException.class,
+                () -> dao.create(clienteDuplicato)
         );
+
         assertTrue(ex.getMessage().toLowerCase().contains("email"));
     }
 
     @Test
     void create_duplicatePhone_throws() {
         dao.create(nuovoCliente("C1", "a1@example.com", "3200000000"));
-        IllegalStateException ex = assertThrows(IllegalStateException.class, () ->
-                dao.create(nuovoCliente("C2", "a2@example.com", "3200000000"))
+
+        Cliente clienteDuplicato = nuovoCliente("C2", "a2@example.com", "3200000000");
+
+        IllegalStateException ex = assertThrows(
+                IllegalStateException.class,
+                () -> dao.create(clienteDuplicato)
         );
+
         assertTrue(ex.getMessage().toLowerCase().contains("telefono"));
     }
 
@@ -77,8 +87,6 @@ class ClienteDaoMemoryTest {
     void read_notFound_throws() {
         assertThrows(NoSuchElementException.class, () -> dao.read("UNKNOWN_ID"));
     }
-    //
-
 
     @Test
     void readAll_returnsSnapshot() {
@@ -87,6 +95,7 @@ class ClienteDaoMemoryTest {
 
         var list = dao.readAll();
         assertEquals(2, list.size());
+
         // mutare la lista ritornata non deve toccare lo storage interno
         list.clear();
         assertEquals(2, dao.readAll().size());
