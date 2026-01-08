@@ -1,5 +1,6 @@
 package com.ispw.progettoispw.controller.controllerGrafico.alternative;
 
+import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
 import com.ispw.progettoispw.controller.controllerApplicativo.LoginController;
 import com.ispw.progettoispw.controller.controllerGrafico.GraphicController;
@@ -7,17 +8,25 @@ import com.ispw.progettoispw.enu.AppointmentStatus;
 import com.ispw.progettoispw.exception.BusinessRuleException;
 import com.ispw.progettoispw.exception.OggettoInvalidoException;
 import com.ispw.progettoispw.exception.ValidazioneException;
-import com.ispw.progettoispw.bean.BookingBean;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class AreaPersonaleGUIAlternativeController extends GraphicController {
+
+    private static final String MSG_NO_BOOKINGS = "Nessuna prenotazione trovata.";
+    private static final String MSG_NOT_LOGGED = "Utente non loggato.";
+    private static final String MSG_MISSING_ID = "Impossibile cancellare: id appuntamento mancante.";
+    private static final String MSG_CANCELLED = "Prenotazione cancellata.";
+    private static final String MSG_TECH_ERROR = "Errore tecnico. Riprova più tardi.";
 
     @FXML private ListView<BookingBean> listView;
     @FXML private Button backButton;
@@ -25,89 +34,129 @@ public class AreaPersonaleGUIAlternativeController extends GraphicController {
 
     private final BookingController bookingController = new BookingController();
 
-    private final DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private final DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("HH:mm");
 
     private final ObservableList<BookingBean> items = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
-        listView.setItems(items);
-        listView.setPlaceholder(new Label("Nessuna prenotazione trovata."));
-
-        listView.setCellFactory(lv -> new ListCell<>() {
-            @Override
-            protected void updateItem(BookingBean b, boolean empty) {
-                super.updateItem(b, empty);
-                if (empty || b == null) {
-                    setText(null);
-                    setGraphic(null);
-                    return;
-                }
-
-                String data   = b.getDay()       != null ? b.getDay().format(dateFmt) : "-";
-                String inizio = b.getStartTime() != null ? b.getStartTime().format(timeFmt) : "-";
-                String fine   = b.getEndTime()   != null ? b.getEndTime().format(timeFmt) : "-";
-                String prezzo = b.getPrezzoTotale() != null ? b.getPrezzoTotale().toPlainString() + " €" : "-";
-                String stato  = b.getStatus() != null ? b.getStatus().name() : "-";
-                String svc    = b.getServiceName() != null ? b.getServiceName() : "Servizio";
-                String coupon = b.getCouponCode() != null ? b.getCouponCode() : "-";
-
-                Label info = new Label(
-                        svc + " | " + data + " " + inizio + "-" + fine +
-                                " | Prezzo: " + prezzo + " | Coupon: " + coupon + " | Stato: " + stato
-                );
-
-                Button cancel = new Button("Cancella");
-                cancel.setStyle("-fx-background-color:#ff0b0b; -fx-text-fill:white;");
-                cancel.setDisable(b.getStatus() == AppointmentStatus.CANCELLED
-                        || b.getStatus() == AppointmentStatus.COMPLETED);
-
-                cancel.setOnAction(e -> onCancel(b));
-
-                HBox row = new HBox(10, info, cancel);
-                row.setFillHeight(true);
-                setGraphic(row);
-                setText(null);
-            }
-        });
-
+        setupListView();
         loadAppointments();
+    }
+
+    private void setupListView() {
+        listView.setItems(items);
+        listView.setPlaceholder(new Label(MSG_NO_BOOKINGS));
+        listView.setCellFactory(lv -> new BookingCell());
+    }
+
+    private final class BookingCell extends ListCell<BookingBean> {
+
+        private final Label info = new Label();
+        private final Button cancel = new Button("Cancella");
+        private final HBox row = new HBox(10, info, cancel);
+
+        private BookingCell() {
+            cancel.setStyle("-fx-background-color:#ff0b0b; -fx-text-fill:white;");
+            cancel.setOnAction(e -> {
+                BookingBean b = getItem();
+                if (b != null) onCancel(b);
+            });
+            row.setFillHeight(true);
+        }
+
+        @Override
+        protected void updateItem(BookingBean b, boolean empty) {
+            super.updateItem(b, empty);
+            if (empty || b == null) {
+                setText(null);
+                setGraphic(null);
+                return;
+            }
+            render(b);
+        }
+
+        private void render(BookingBean b) {
+            info.setText(buildRowText(b));
+            cancel.setDisable(isCancelDisabled(b));
+            setGraphic(row);
+            setText(null);
+        }
+    }
+
+    private boolean isCancelDisabled(BookingBean b) {
+        return b.getStatus() == AppointmentStatus.CANCELLED
+                || b.getStatus() == AppointmentStatus.COMPLETED
+                || isBlank(b.getAppointmentId());
     }
 
     private void loadAppointments() {
         items.clear();
 
         String clientId = LoginController.getId();
-        if (clientId == null || clientId.isBlank()) {
-            listView.setPlaceholder(new Label("Utente non loggato."));
+        if (isBlank(clientId)) {
+            listView.setPlaceholder(new Label(MSG_NOT_LOGGED));
             return;
         }
 
         List<BookingBean> lista = bookingController.listCustomerAppointmentsVM(clientId);
         if (lista == null || lista.isEmpty()) {
-            listView.setPlaceholder(new Label("Nessuna prenotazione trovata."));
+            listView.setPlaceholder(new Label(MSG_NO_BOOKINGS));
             return;
         }
+
         items.addAll(lista);
     }
 
     private void onCancel(BookingBean b) {
-        if (b.getAppointmentId() == null || b.getAppointmentId().isBlank()) {
-            showInfo("Impossibile cancellare: id appuntamento mancante.");
+        if (isBlank(b.getAppointmentId())) {
+            showInfo(MSG_MISSING_ID);
             return;
         }
 
         try {
             bookingController.cancelCustomerAppointment(b.getAppointmentId());
-            showInfo("Prenotazione cancellata.");
+            showInfo(MSG_CANCELLED);
             loadAppointments();
-
         } catch (ValidazioneException | OggettoInvalidoException | BusinessRuleException e) {
             showError(e.getMessage());
         } catch (Exception ex) {
-            showError("Errore tecnico. Riprova più tardi.");
+            showError(MSG_TECH_ERROR);
         }
+    }
+
+    private String buildRowText(BookingBean b) {
+        String data   = formatDate(b.getDay());
+        String inizio = formatTime(b.getStartTime());
+        String fine   = formatTime(b.getEndTime());
+        String prezzo = formatPrice(b.getPrezzoTotale());
+        String stato  = (b.getStatus() == null) ? "-" : b.getStatus().name();
+        String svc    = defaultIfBlank(b.getServiceName(), "Servizio");
+        String coupon = defaultIfBlank(b.getCouponCode(), "-");
+
+        return svc + " | " + data + " " + inizio + "-" + fine
+                + " | Prezzo: " + prezzo + " | Coupon: " + coupon + " | Stato: " + stato;
+    }
+
+    private String formatDate(LocalDate d) {
+        return (d == null) ? "-" : d.format(DATE_FMT);
+    }
+
+    private String formatTime(LocalTime t) {
+        return (t == null) ? "-" : t.format(TIME_FMT);
+    }
+
+    private String formatPrice(BigDecimal p) {
+        return (p == null) ? "-" : (p.toPlainString() + " €");
+    }
+
+    private String defaultIfBlank(String s, String fallback) {
+        return isBlank(s) ? fallback : s;
+    }
+
+    private boolean isBlank(String s) {
+        return s == null || s.isBlank();
     }
 
     @FXML
