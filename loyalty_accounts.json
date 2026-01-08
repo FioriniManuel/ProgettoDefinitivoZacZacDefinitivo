@@ -1,0 +1,23 @@
+[
+  {
+    "LoyaltyAccountId": "dadfe54c-2898-4587-ad9f-6a1482d4280b",
+    "clientId": "5d25e22d-1442-45d0-ad55-7b1e4910de36",
+    "currentPoints": 3,
+    "lifetimeEarned": 63,
+    "lifetimeRedeemed": 0
+  },
+  {
+    "LoyaltyAccountId": "d302760a-0fc0-4a9b-be80-bf5a8d1a74e1",
+    "clientId": "a81f155e-7c48-471a-a5df-c7cc9dee129d",
+    "currentPoints": 0,
+    "lifetimeEarned": 0,
+    "lifetimeRedeemed": 0
+  },
+  {
+    "LoyaltyAccountId": "7a16e333-02db-4fd6-8134-82b5c3f9afc6",
+    "clientId": "37b0ce62-1846-4894-bd65-1abdbf2c1182",
+    "currentPoints": 0,
+    "lifetimeEarned": 0,
+    "lifetimeRedeemed": 0
+  }
+]

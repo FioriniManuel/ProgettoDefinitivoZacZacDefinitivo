@@ -1,0 +1,26 @@
+[
+  {
+    "email": "manuel@gmail.com",
+    "nome": "Manuel",
+    "cognome": "Fiorini",
+    "numerodiTelefono": "3772007973",
+    "password": "manuel03",
+    "id": "5d25e22d-1442-45d0-ad55-7b1e4910de36"
+  },
+  {
+    "email": "manu@gmail.com",
+    "nome": "manu",
+    "cognome": "fio",
+    "numerodiTelefono": "3772007975",
+    "password": "francesca",
+    "id": "a81f155e-7c48-471a-a5df-c7cc9dee129d"
+  },
+  {
+    "email": "m@gmail.com",
+    "nome": "a",
+    "cognome": "b",
+    "numerodiTelefono": "3212241234",
+    "password": "francesca",
+    "id": "37b0ce62-1846-4894-bd65-1abdbf2c1182"
+  }
+]
