@@ -13,6 +13,13 @@ public class PersonalCoupon {
     private String note;
 
     public PersonalCoupon() {
+        /**
+         * Costruttore vuoto intenzionale.
+         * <p>
+         * Necessario per permettere l'istanziazione dell'entità
+         * tramite framework di serializzazione/deserializzazione
+         * (ad es. Gson) e meccanismi basati su riflessione.
+         */
     }
 
 

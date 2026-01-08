@@ -60,6 +60,15 @@ public class ServizioDaoMemory implements ReadOnlyDao<Servizio> {
 
     @Override
     public void upsert(Servizio updated) {
+        /*
+         * Metodo volutamente non implementato.
+         * Questo DAO espone un accesso in sola lettura (read-only):
+         * l'inserimento o aggiornamento dei Servizi non è consentito
+         * tramite questa implementazione.
+         *
+         * L'override è necessario per rispettare il contratto
+         * dell'interfaccia, ma l'operazione non è supportata.
+         */
 
     }
 
