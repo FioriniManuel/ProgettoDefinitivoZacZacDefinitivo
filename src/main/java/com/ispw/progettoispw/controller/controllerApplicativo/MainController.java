@@ -5,10 +5,17 @@ import com.ispw.progettoispw.factory.DaoFactory;
 
 public class MainController {
 
-    public  MainController(){}
-    public void persistenza(){
-        DaoFactory.setStorageOption(StorageOption.FILE);
+    /**
+     * Costruttore vuoto intenzionale.
+     * Necessario per consentire l'istanziazione standard del controller
+     * e mantenere il disaccoppiamento dalla logica di configurazione.
+     */
+    public MainController() {
+        // intentionally empty
+    }
 
+    public void persistenza() {
+        DaoFactory.setStorageOption(StorageOption.FILE);
     }
 
     public void memory() {
