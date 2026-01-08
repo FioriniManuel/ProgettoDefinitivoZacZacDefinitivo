@@ -17,17 +17,17 @@ public class ServizioDaoMemory implements ReadOnlyDao<Servizio> {
 
     public ServizioDaoMemory()  {
         Map<String, Servizio> seed = new LinkedHashMap<>();
-        seed.put("TAGLIO_UOMO",  new Servizio("TAGLIO_UOMO",  "Taglio Uomo",  new BigDecimal("15.00"), UOMO,30));
+        seed.put("TAGLIO_UOMO",  new Servizio("TAGLIO_UOMO",  "Taglio Uomo",  new BigDecimal("14.00"), UOMO,30));
         seed.put("BARBA",        new Servizio("BARBA",        "Barba",        new BigDecimal("8.00"), UOMO,30));
-        seed.put("TAGLIO_DONNA", new Servizio("TAGLIO_DONNA", "Taglio Donna", new BigDecimal("20.00"), DONNA,30));
-        seed.put("PIEGA",        new Servizio("PIEGA",        "Piega",        new BigDecimal("20.00"), DONNA,30));
-        seed.put("TAGLIO+SHAMPOO+STYLING",      new Servizio("TAGLIO+SHAMPOO+STYLING",      "Taglio+Shampoo+Styling Uomo",      new BigDecimal("20.00"),  UOMO,60));
+        seed.put("TAGLIO_DONNA", new Servizio("TAGLIO_DONNA", "Taglio Donna", new BigDecimal("21.00"), DONNA,30));
+        seed.put("PIEGA",        new Servizio("PIEGA",        "Piega",        new BigDecimal("24.00"), DONNA,30));
+        seed.put("TAGLIO+SHAMPOO+STYLING",      new Servizio("TAGLIO+SHAMPOO+STYLING",      "Taglio+Shampoo+Styling Uomo",      new BigDecimal("27.00"),  UOMO,60));
         seed.put("TAGLIO+SHAMPOO_UOMO", new Servizio("TAGLIO+SHAMPOO_UOMO","Taglio+Shampoo Uomo",new BigDecimal("18.00"),UOMO,60));
         seed.put("MODELLATURA BARBA", new Servizio("MODELLATURA BARBA","Modellatura Barba",new BigDecimal("13.00"),UOMO,30));
         seed.put("BARBA_SAGOMATA+PANNO_CALDO", new Servizio("BARBA_SAGOMATA+PANNO_CALDO","Barba Sagomata + Panno Caldo",new BigDecimal("15.00"),UOMO,30));
-        seed.put("TRATTAMENTO ANTICADUTA/ANTIFORFORA", new Servizio("TRATTAMENTO ANTICADUTA/ANTIFORFORA","Trattamento Anticaduta/Antiforfora",new BigDecimal("15.00"),UOMO,60));
+        seed.put("TRATTAMENTO ANTICADUTA/ANTIFORFORA", new Servizio("TRATTAMENTO ANTICADUTA/ANTIFORFORA","Trattamento Anticaduta/Antiforfora",new BigDecimal("11.00"),UOMO,60));
         seed.put("COLORE",  new Servizio("COLORE",  "Colore",  new BigDecimal("25.00"), UOMO,60));
-        seed.put("TAGLIO+BARBA", new Servizio("TAGLIO+BARBA","Taglio+Barba",new BigDecimal("20.00"),UOMO,60));
+        seed.put("TAGLIO+BARBA", new Servizio("TAGLIO+BARBA","Taglio+Barba",new BigDecimal("26.00"),UOMO,60));
         seed.put("TAGLIO+BARBA+SHAMPOO",new Servizio("TAGLIO+BARBA+SHAMPOO","Taglio+Barba+Shampoo",new BigDecimal("25.00"),UOMO,60));
         seed.put("TAGLIO+PIEGA",new Servizio("TAGLIO+PIEGA","Taglio+Piega",new BigDecimal("30.00"),DONNA,60));
         seed.put("FRANGIA", new Servizio("FRANGIA","Frangia",new BigDecimal("10.00"),DONNA,30));

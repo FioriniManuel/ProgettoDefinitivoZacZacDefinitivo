@@ -32,8 +32,20 @@ public class ServizioDaoFile implements ReadOnlyDao<Servizio> {
     private List<Servizio> cache;       // mantiene l'ordine
     private Map<String, Servizio> byId; // indice veloce per id
 
-    public ServizioDaoFile() { }
-
+    /**
+     * Costruttore vuoto intenzionale.
+     * <p>
+     * Questa classe utilizza un meccanismo di <b>lazy loading</b>:
+     * i dati vengono caricati dal file solo al primo accesso
+     * (vedi {@link #ensureLoaded()}).
+     * <p>
+     * Non è necessaria alcuna inizializzazione anticipata nel costruttore,
+     * per evitare I/O su filesystem non richiesto e migliorare le prestazioni
+     * all'avvio dell'applicazione.
+     */
+    public ServizioDaoFile() {
+        // intentionally empty
+    }
     /* ============= Lazy load ============= */
 
     private void ensureLoaded() {
@@ -134,19 +146,19 @@ public class ServizioDaoFile implements ReadOnlyDao<Servizio> {
 
     private List<Servizio> getDefaultSeed() {
         List<Servizio> seed = new ArrayList<>();
-        seed.add(new Servizio("TAGLIO_UOMO",  "Taglio Uomo",  new BigDecimal("15.00"), UOMO, 30));
+        seed.add(new Servizio("TAGLIO_UOMO",  "Taglio Uomo",  new BigDecimal("14.00"), UOMO, 30));
         seed.add(new Servizio("BARBA",        "Barba",        new BigDecimal("8.00"),  UOMO, 30));
-        seed.add(new Servizio("TAGLIO_DONNA", "Taglio Donna", new BigDecimal("20.00"), DONNA,30));
-        seed.add(new Servizio("PIEGA",        "Piega",        new BigDecimal("20.00"), DONNA,30));
+        seed.add(new Servizio("TAGLIO_DONNA", "Taglio Donna", new BigDecimal("21.00"), DONNA,30));
+        seed.add(new Servizio("PIEGA",        "Piega",        new BigDecimal("24.00"), DONNA,30));
         seed.add(new Servizio("TAGLIO+SHAMPOO+STYLING","Taglio+Shampoo+Styling Uomo",new BigDecimal("20.00"),UOMO,60));
         seed.add(new Servizio("TAGLIO+SHAMPOO_UOMO","Taglio+Shampoo Uomo",new BigDecimal("18.00"),UOMO,60));
         seed.add(new Servizio("MODELLATURA BARBA","Modellatura Barba",new BigDecimal("13.00"),UOMO,30));
         seed.add(new Servizio("BARBA_SAGOMATA+PANNO_CALDO","Barba Sagomata + Panno Caldo",new BigDecimal("15.00"),UOMO,30));
-        seed.add(new Servizio("TRATTAMENTO ANTICADUTA/ANTIFORFORA","Trattamento Anticaduta/Antiforfora",new BigDecimal("15.00"),UOMO,60));
-        seed.add(new Servizio("COLORE",  "Colore",  new BigDecimal("25.00"), UOMO, 60));
-        seed.add(new Servizio("TAGLIO+BARBA","Taglio+Barba",new BigDecimal("20.00"),UOMO,60));
-        seed.add(new Servizio("TAGLIO+BARBA+SHAMPOO","Taglio+Barba+Shampoo",new BigDecimal("25.00"),UOMO,60));
-        seed.add(new Servizio("TAGLIO+PIEGA","Taglio+Piega",new BigDecimal("30.00"),DONNA,60));
+        seed.add(new Servizio("TRATTAMENTO ANTICADUTA/ANTIFORFORA","Trattamento Anticaduta/Antiforfora",new BigDecimal("11.00"),UOMO,60));
+        seed.add(new Servizio("COLORE",  "Colore",  new BigDecimal("26.00"), UOMO, 60));
+        seed.add(new Servizio("TAGLIO+BARBA","Taglio+Barba",new BigDecimal("19.00"),UOMO,60));
+        seed.add(new Servizio("TAGLIO+BARBA+SHAMPOO","Taglio+Barba+Shampoo",new BigDecimal("23.00"),UOMO,60));
+        seed.add(new Servizio("TAGLIO+PIEGA","Taglio+Piega",new BigDecimal("30.50"),DONNA,60));
         seed.add(new Servizio("FRANGIA","Frangia",new BigDecimal("10.00"),DONNA,30));
         seed.add(new Servizio("COLORE_RICRESCITA","Colore Ricrescita", new BigDecimal("30.00"),DONNA,60));
         seed.add(new Servizio("COLPI_DI_SOLE","Colpi di Sole",new BigDecimal("50.00"),DONNA,60));
