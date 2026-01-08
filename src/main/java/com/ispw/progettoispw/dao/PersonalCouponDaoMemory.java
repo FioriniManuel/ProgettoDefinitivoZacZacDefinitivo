@@ -47,15 +47,7 @@ public class PersonalCouponDaoMemory implements GenericDao<PersonalCoupon> {
         return code == null ? null : code.trim();
     }
 
-    private void index(PersonalCoupon c) {
-        final String id = c.getCouponId();
-        addToIndex(idsByClient, c.getClientId(), id);
-        addToIndex(idsByStatus, c.getStatus(), id);
-        String code = normCode(c.getCode());
-        if (code != null && !code.isEmpty()) {
-            idByCode.put(code, id);
-        }
-    }
+
 
     private void unindex(PersonalCoupon c) {
         final String id = c.getCouponId();
