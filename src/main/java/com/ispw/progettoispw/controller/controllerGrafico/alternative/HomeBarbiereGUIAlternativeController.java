@@ -58,8 +58,11 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
             dateTextField.setText(DF.format(today));
             dateTextField.setOnAction(e -> applyDateFromField());
             dateTextField.focusedProperty().addListener((obs, was, is) -> {
-                if (!is) applyDateFromField();
+                if (is) return;      // guard clause: quando ha focus non fare nulla
+                applyDateFromField(); // quando perde focus applica la data
             });
+
+            ;
         }
 
         if (appointmentsList != null) {
