@@ -1,6 +1,6 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.MainController;
+import com.ispw.progettoispw.controller.controllerApplicativo.MainController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;

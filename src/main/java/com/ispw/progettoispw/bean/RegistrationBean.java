@@ -1,7 +1,7 @@
 package com.ispw.progettoispw.bean;
 
-import com.ispw.progettoispw.Enum.GenderCategory;
-import com.ispw.progettoispw.Enum.Role;
+import com.ispw.progettoispw.enu.GenderCategory;
+import com.ispw.progettoispw.enu.Role;
 
 import java.util.ArrayList;
 import java.util.List;

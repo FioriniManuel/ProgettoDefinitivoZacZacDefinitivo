@@ -1,7 +1,7 @@
-package com.ispw.progettoispw.Factory;
+package com.ispw.progettoispw.factory;
 
-import com.ispw.progettoispw.Dao.GenericDao;
-import com.ispw.progettoispw.Dao.ReadOnlyDao;
+import com.ispw.progettoispw.dao.GenericDao;
+import com.ispw.progettoispw.dao.ReadOnlyDao;
 import com.ispw.progettoispw.entity.*;
 
 public interface DaoFactoryInterface {

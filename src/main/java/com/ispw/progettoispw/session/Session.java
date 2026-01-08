@@ -1,7 +1,6 @@
-package com.ispw.progettoispw.Session;
+package com.ispw.progettoispw.session;
 
-import com.ispw.progettoispw.Enum.Role;
-import com.ispw.progettoispw.Enum.StorageOption;
+import com.ispw.progettoispw.enu.Role;
 
 import java.util.Objects;
 

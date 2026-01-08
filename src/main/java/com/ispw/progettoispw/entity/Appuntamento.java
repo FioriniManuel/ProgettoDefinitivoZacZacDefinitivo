@@ -1,12 +1,10 @@
 package com.ispw.progettoispw.entity;
 
-import com.ispw.progettoispw.Enum.AppointmentStatus;
-import com.ispw.progettoispw.Enum.CouponStatus;
-import com.ispw.progettoispw.Enum.PaymentChannel;
+import com.ispw.progettoispw.enu.AppointmentStatus;
+import com.ispw.progettoispw.enu.CouponStatus;
+import com.ispw.progettoispw.enu.PaymentChannel;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;

@@ -1,13 +1,11 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import com.ispw.progettoispw.entity.Servizio;
-import com.ispw.progettoispw.Enum.GenderCategory;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import static com.ispw.progettoispw.Enum.GenderCategory.*;
+import static com.ispw.progettoispw.enu.GenderCategory.*;
 
 /**
  * DAO in-memory per Servizio, senza interfaccia.

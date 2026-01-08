@@ -1,10 +1,10 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.RegistrazioneController;
-import com.ispw.progettoispw.Enum.GenderCategory;
-import com.ispw.progettoispw.Enum.Role;
-import com.ispw.progettoispw.Exception.DuplicateCredentialException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
+import com.ispw.progettoispw.controller.controllerApplicativo.RegistrazioneController;
+import com.ispw.progettoispw.enu.GenderCategory;
+import com.ispw.progettoispw.enu.Role;
+import com.ispw.progettoispw.exception.DuplicateCredentialException;
+import com.ispw.progettoispw.exception.ValidazioneException;
 import com.ispw.progettoispw.bean.RegistrationBean;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

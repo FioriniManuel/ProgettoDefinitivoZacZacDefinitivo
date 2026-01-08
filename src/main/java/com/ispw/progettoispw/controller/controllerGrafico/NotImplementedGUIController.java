@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
 import javafx.fxml.FXML;
 

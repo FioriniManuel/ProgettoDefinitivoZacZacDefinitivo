@@ -1,10 +1,10 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.LoginController;
-import com.ispw.progettoispw.Enum.Role;
-import com.ispw.progettoispw.Exception.AutenticazioneException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
+import com.ispw.progettoispw.controller.controllerApplicativo.LoginController;
+import com.ispw.progettoispw.enu.Role;
+import com.ispw.progettoispw.exception.AutenticazioneException;
+import com.ispw.progettoispw.exception.ValidazioneException;
 
 import com.ispw.progettoispw.bean.LoginBean;
 

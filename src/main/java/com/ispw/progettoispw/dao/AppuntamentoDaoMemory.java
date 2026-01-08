@@ -1,6 +1,5 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
-import com.ispw.progettoispw.Enum.AppointmentStatus; // se la tua enum è in entity, cambia l'import
 import com.ispw.progettoispw.entity.Appuntamento;
 
 import java.time.LocalDate;

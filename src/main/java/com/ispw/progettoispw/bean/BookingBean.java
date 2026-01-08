@@ -1,8 +1,8 @@
 package com.ispw.progettoispw.bean;
 
-import com.ispw.progettoispw.Enum.AppointmentStatus;
-import com.ispw.progettoispw.Enum.GenderCategory;
-import com.ispw.progettoispw.Enum.PaymentChannel;
+import com.ispw.progettoispw.enu.AppointmentStatus;
+import com.ispw.progettoispw.enu.GenderCategory;
+import com.ispw.progettoispw.enu.PaymentChannel;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

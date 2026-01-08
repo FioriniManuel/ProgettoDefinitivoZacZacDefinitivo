@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Exception;
+package com.ispw.progettoispw.exception;
 
 public class ValidazioneException extends Exception {
     public ValidazioneException(String message) {

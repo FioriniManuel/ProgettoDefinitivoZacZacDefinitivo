@@ -1,6 +1,6 @@
 package com.ispw.progettoispw.bean;
 
-import com.ispw.progettoispw.Enum.Role;
+import com.ispw.progettoispw.enu.Role;
 
 public class LoginBean {
     private String email;

@@ -1,6 +1,6 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico.Alternative;
+package com.ispw.progettoispw.controller.controllerGrafico.alternative;
 
-import com.ispw.progettoispw.Controller.ControllerGrafico.GraphicController;
+import com.ispw.progettoispw.controller.controllerGrafico.GraphicController;
 import javafx.fxml.FXML;
 
 public class NotImplementedGUIAlternativeController extends GraphicController {

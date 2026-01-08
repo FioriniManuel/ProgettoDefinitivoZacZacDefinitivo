@@ -1,7 +1,7 @@
 package com.ispw.progettoispw.entity;
 
 
-import com.ispw.progettoispw.Enum.Role;
+import com.ispw.progettoispw.enu.Role;
 
 public abstract class User {
      private String email;

@@ -1,6 +1,6 @@
 package com.ispw.progettoispw.entity;
 
-import com.ispw.progettoispw.Enum.GenderCategory;
+import com.ispw.progettoispw.enu.GenderCategory;
 
 import java.math.BigDecimal;
 

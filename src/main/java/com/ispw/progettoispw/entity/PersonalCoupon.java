@@ -1,6 +1,6 @@
 package com.ispw.progettoispw.entity;
 
-import com.ispw.progettoispw.Enum.CouponStatus;
+import com.ispw.progettoispw.enu.CouponStatus;
 
 import java.math.BigDecimal;
 

@@ -1,10 +1,10 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.BookingController;
-import com.ispw.progettoispw.Controller.ControllerApplicativo.CouponController;
-import com.ispw.progettoispw.Exception.ConflittoPrenotazioneException;
-import com.ispw.progettoispw.Exception.OggettoInvalidoException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
+import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
+import com.ispw.progettoispw.controller.controllerApplicativo.CouponController;
+import com.ispw.progettoispw.exception.ConflittoPrenotazioneException;
+import com.ispw.progettoispw.exception.OggettoInvalidoException;
+import com.ispw.progettoispw.exception.ValidazioneException;
 import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.bean.CouponBean;
 import com.ispw.progettoispw.bean.PaymentBean;

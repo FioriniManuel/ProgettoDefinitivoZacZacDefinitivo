@@ -1,7 +1,7 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.BookingController;
-import com.ispw.progettoispw.Enum.GenderCategory;
+import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
+import com.ispw.progettoispw.enu.GenderCategory;
 import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.entity.Servizio;
 import javafx.fxml.FXML;

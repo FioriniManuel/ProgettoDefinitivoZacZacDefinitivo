@@ -1,11 +1,11 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico.Alternative;
+package com.ispw.progettoispw.controller.controllerGrafico.alternative;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.BookingController;
-import com.ispw.progettoispw.Controller.ControllerApplicativo.LoginController;
-import com.ispw.progettoispw.Controller.ControllerGrafico.GraphicController;
-import com.ispw.progettoispw.Exception.ConflittoPrenotazioneException;
-import com.ispw.progettoispw.Exception.OggettoInvalidoException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
+import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
+import com.ispw.progettoispw.controller.controllerApplicativo.LoginController;
+import com.ispw.progettoispw.controller.controllerGrafico.GraphicController;
+import com.ispw.progettoispw.exception.ConflittoPrenotazioneException;
+import com.ispw.progettoispw.exception.OggettoInvalidoException;
+import com.ispw.progettoispw.exception.ValidazioneException;
 import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.bean.ServizioBean;
 import javafx.fxml.FXML;

@@ -1,19 +1,13 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
-import com.ispw.progettoispw.Enum.AppointmentStatus;
 import com.ispw.progettoispw.entity.Appuntamento;
 import com.ispw.progettoispw.pattern.GsonProvider;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class AppuntamentoDaoFile implements GenericDao<Appuntamento> {

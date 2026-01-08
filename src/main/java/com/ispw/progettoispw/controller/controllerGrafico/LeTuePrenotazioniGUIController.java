@@ -1,11 +1,11 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.BookingController;
-import com.ispw.progettoispw.Controller.ControllerApplicativo.LoginController;
-import com.ispw.progettoispw.Enum.AppointmentStatus;
-import com.ispw.progettoispw.Exception.BusinessRuleException;
-import com.ispw.progettoispw.Exception.OggettoInvalidoException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
+import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
+import com.ispw.progettoispw.controller.controllerApplicativo.LoginController;
+import com.ispw.progettoispw.enu.AppointmentStatus;
+import com.ispw.progettoispw.exception.BusinessRuleException;
+import com.ispw.progettoispw.exception.OggettoInvalidoException;
+import com.ispw.progettoispw.exception.ValidazioneException;
 import com.ispw.progettoispw.bean.BookingBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

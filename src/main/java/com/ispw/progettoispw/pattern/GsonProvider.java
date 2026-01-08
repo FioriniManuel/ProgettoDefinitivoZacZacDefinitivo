@@ -2,8 +2,8 @@ package com.ispw.progettoispw.pattern;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ispw.progettoispw.Adapter.LocalDateAdapter;
-import com.ispw.progettoispw.Adapter.LocalTimeAdapter;
+import com.ispw.progettoispw.adapter.LocalDateAdapter;
+import com.ispw.progettoispw.adapter.LocalTimeAdapter;
 
 
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
-package com.ispw.progettoispw.Session;
+package com.ispw.progettoispw.session;
 
-import com.ispw.progettoispw.Enum.Role;
+import com.ispw.progettoispw.enu.Role;
 import com.ispw.progettoispw.bean.BookingBean;
 
 import java.util.Optional;

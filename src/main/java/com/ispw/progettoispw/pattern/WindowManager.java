@@ -1,6 +1,6 @@
 package com.ispw.progettoispw.pattern;
 
-import com.ispw.progettoispw.Exception.ViewLoadException;
+import com.ispw.progettoispw.exception.ViewLoadException;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 

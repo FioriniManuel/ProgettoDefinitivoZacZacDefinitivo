@@ -1,7 +1,7 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import com.ispw.progettoispw.entity.PersonalCoupon;
-import com.ispw.progettoispw.Enum.CouponStatus;
+import com.ispw.progettoispw.enu.CouponStatus;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

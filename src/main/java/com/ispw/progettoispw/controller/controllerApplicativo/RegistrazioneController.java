@@ -1,9 +1,9 @@
-package com.ispw.progettoispw.Controller.ControllerApplicativo;
+package com.ispw.progettoispw.controller.controllerApplicativo;
 
-import com.ispw.progettoispw.Dao.GenericDao;
-import com.ispw.progettoispw.Exception.DuplicateCredentialException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
-import com.ispw.progettoispw.Factory.DaoFactory;
+import com.ispw.progettoispw.dao.GenericDao;
+import com.ispw.progettoispw.exception.DuplicateCredentialException;
+import com.ispw.progettoispw.exception.ValidazioneException;
+import com.ispw.progettoispw.factory.DaoFactory;
 import com.ispw.progettoispw.bean.RegistrationBean;
 import com.ispw.progettoispw.entity.*;
 

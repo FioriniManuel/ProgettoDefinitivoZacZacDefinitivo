@@ -1,10 +1,10 @@
-package com.ispw.progettoispw.Controller.ControllerApplicativo;
+package com.ispw.progettoispw.controller.controllerApplicativo;
 
-import com.ispw.progettoispw.Dao.ReadOnlyDao;
-import com.ispw.progettoispw.Exception.BusinessRuleException;
-import com.ispw.progettoispw.Exception.OggettoInvalidoException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
-import com.ispw.progettoispw.Factory.DaoFactory;
+import com.ispw.progettoispw.dao.ReadOnlyDao;
+import com.ispw.progettoispw.exception.BusinessRuleException;
+import com.ispw.progettoispw.exception.OggettoInvalidoException;
+import com.ispw.progettoispw.exception.ValidazioneException;
+import com.ispw.progettoispw.factory.DaoFactory;
 import com.ispw.progettoispw.bean.PrizeBean;
 import com.ispw.progettoispw.entity.PrizeOption;
 

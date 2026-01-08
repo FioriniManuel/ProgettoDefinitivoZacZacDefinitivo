@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" prefHeight="520" prefWidth="700" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.Controller.ControllerGrafico.RiepilogoGUIController">
+<StackPane fx:id="root" prefHeight="520" prefWidth="700" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllerGrafico.RiepilogoGUIController">
 
     <VBox alignment="TOP_CENTER" prefWidth="680" spacing="16" style="-fx-background-color: e3e3e3;">
         <children>

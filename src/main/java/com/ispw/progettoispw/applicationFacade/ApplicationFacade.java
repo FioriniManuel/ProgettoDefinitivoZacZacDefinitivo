@@ -1,11 +1,11 @@
-package com.ispw.progettoispw.ApplicationFacade;
-import com.ispw.progettoispw.Controller.ControllerApplicativo.BookingController;
-import com.ispw.progettoispw.Factory.DaoFactory;
-import com.ispw.progettoispw.Dao.GenericDao;
+package com.ispw.progettoispw.applicationFacade;
+import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
+import com.ispw.progettoispw.factory.DaoFactory;
+import com.ispw.progettoispw.dao.GenericDao;
 import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.entity.Barbiere;
 import com.ispw.progettoispw.entity.Servizio;
-import com.ispw.progettoispw.Session.SessionManager; // <-- adatta il package della tua Session!
+import com.ispw.progettoispw.session.SessionManager; // <-- adatta il package della tua Session!
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

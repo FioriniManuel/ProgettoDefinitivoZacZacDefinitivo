@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Enum;
+package com.ispw.progettoispw.enu;
 
 public enum GenderCategory {
     UOMO,

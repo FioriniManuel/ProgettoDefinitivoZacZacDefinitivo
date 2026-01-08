@@ -1,7 +1,6 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.ispw.progettoispw.entity.Cliente;
 import com.ispw.progettoispw.pattern.GsonProvider;

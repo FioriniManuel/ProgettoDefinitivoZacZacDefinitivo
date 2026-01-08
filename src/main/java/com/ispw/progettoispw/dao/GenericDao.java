@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import java.util.List;
 

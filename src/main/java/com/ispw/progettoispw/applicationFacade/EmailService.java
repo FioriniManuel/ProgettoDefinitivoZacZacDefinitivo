@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.ApplicationFacade;
+package com.ispw.progettoispw.applicationFacade;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

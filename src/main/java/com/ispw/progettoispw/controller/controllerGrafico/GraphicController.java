@@ -1,6 +1,6 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
-import com.ispw.progettoispw.Exception.ViewLoadException;
+import com.ispw.progettoispw.exception.ViewLoadException;
 import com.ispw.progettoispw.pattern.WindowManager;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;

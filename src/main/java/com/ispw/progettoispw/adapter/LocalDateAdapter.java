@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Adapter;
+package com.ispw.progettoispw.adapter;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;

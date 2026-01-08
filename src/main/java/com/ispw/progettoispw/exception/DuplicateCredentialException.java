@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Exception;
+package com.ispw.progettoispw.exception;
 
 public class DuplicateCredentialException extends BusinessRuleException {
     public enum Field { EMAIL, PHONE }

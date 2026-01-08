@@ -1,16 +1,15 @@
-package com.ispw.progettoispw.Controller.ControllerApplicativo;
+package com.ispw.progettoispw.controller.controllerApplicativo;
 
-import com.ispw.progettoispw.Dao.GenericDao;
-import com.ispw.progettoispw.Enum.CouponStatus;
-import com.ispw.progettoispw.Exception.ValidazioneException;
-import com.ispw.progettoispw.Factory.DaoFactory;
+import com.ispw.progettoispw.dao.GenericDao;
+import com.ispw.progettoispw.enu.CouponStatus;
+import com.ispw.progettoispw.exception.ValidazioneException;
+import com.ispw.progettoispw.factory.DaoFactory;
 import com.ispw.progettoispw.bean.CouponBean;
 import com.ispw.progettoispw.entity.LoyaltyAccount;
 import com.ispw.progettoispw.entity.PersonalCoupon;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 

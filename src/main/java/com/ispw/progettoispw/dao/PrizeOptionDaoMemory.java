@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import com.ispw.progettoispw.entity.PrizeOption;
 import java.math.BigDecimal;

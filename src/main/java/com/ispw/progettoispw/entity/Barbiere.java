@@ -1,7 +1,7 @@
 package com.ispw.progettoispw.entity;
 
-import com.ispw.progettoispw.Enum.GenderCategory;
-import com.ispw.progettoispw.Enum.Role;
+import com.ispw.progettoispw.enu.GenderCategory;
+import com.ispw.progettoispw.enu.Role;
 
 public class Barbiere extends User {
         private GenderCategory specializzazione;

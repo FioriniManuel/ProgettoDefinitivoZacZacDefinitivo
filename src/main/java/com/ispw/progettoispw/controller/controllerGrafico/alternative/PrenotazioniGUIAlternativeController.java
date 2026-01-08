@@ -1,9 +1,9 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico.Alternative;
+package com.ispw.progettoispw.controller.controllerGrafico.alternative;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.BookingController;
-import com.ispw.progettoispw.Controller.ControllerApplicativo.LoginController;
-import com.ispw.progettoispw.Controller.ControllerGrafico.GraphicController;
-import com.ispw.progettoispw.Enum.GenderCategory;
+import com.ispw.progettoispw.controller.controllerApplicativo.BookingController;
+import com.ispw.progettoispw.controller.controllerApplicativo.LoginController;
+import com.ispw.progettoispw.controller.controllerGrafico.GraphicController;
+import com.ispw.progettoispw.enu.GenderCategory;
 import com.ispw.progettoispw.bean.BarbiereBean;
 import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.bean.ServizioBean;

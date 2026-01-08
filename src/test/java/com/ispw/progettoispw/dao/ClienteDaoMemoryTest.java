@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import com.ispw.progettoispw.entity.Cliente;
 import org.junit.jupiter.api.BeforeEach;

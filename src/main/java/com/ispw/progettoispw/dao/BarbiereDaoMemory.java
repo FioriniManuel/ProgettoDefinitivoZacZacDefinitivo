@@ -1,11 +1,9 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import com.ispw.progettoispw.entity.Barbiere;
-import com.ispw.progettoispw.Enum.GenderCategory;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 public class BarbiereDaoMemory implements GenericDao<Barbiere> {
 

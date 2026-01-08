@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Exception;
+package com.ispw.progettoispw.exception;
 
 public class ViewLoadException extends Exception {
     public ViewLoadException(String message) {

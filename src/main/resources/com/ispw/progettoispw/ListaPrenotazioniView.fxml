@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="653.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.Controller.ControllerGrafico.PrenotazioniTabGUIController">
+<VBox prefHeight="653.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllerGrafico.PrenotazioniTabGUIController">
     <children>
         <Pane prefHeight="155.0" prefWidth="600.0" style="-fx-background-color: e3e3e3;">
             <children>

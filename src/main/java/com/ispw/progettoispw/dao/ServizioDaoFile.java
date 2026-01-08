@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.Dao;
+package com.ispw.progettoispw.dao;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
@@ -12,8 +12,8 @@ import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import static com.ispw.progettoispw.Enum.GenderCategory.DONNA;
-import static com.ispw.progettoispw.Enum.GenderCategory.UOMO;
+import static com.ispw.progettoispw.enu.GenderCategory.DONNA;
+import static com.ispw.progettoispw.enu.GenderCategory.UOMO;
 
 public class ServizioDaoFile implements ReadOnlyDao<Servizio> {
 

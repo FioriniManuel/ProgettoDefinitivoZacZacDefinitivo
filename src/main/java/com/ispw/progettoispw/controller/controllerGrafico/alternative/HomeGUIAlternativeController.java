@@ -1,7 +1,7 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico.Alternative;
+package com.ispw.progettoispw.controller.controllerGrafico.alternative;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.LoginController;
-import com.ispw.progettoispw.Controller.ControllerGrafico.GraphicController;
+import com.ispw.progettoispw.controller.controllerApplicativo.LoginController;
+import com.ispw.progettoispw.controller.controllerGrafico.GraphicController;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 

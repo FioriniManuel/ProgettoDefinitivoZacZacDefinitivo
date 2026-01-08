@@ -1,11 +1,11 @@
-package com.ispw.progettoispw.Controller.ControllerGrafico;
+package com.ispw.progettoispw.controller.controllerGrafico;
 
-import com.ispw.progettoispw.Controller.ControllerApplicativo.FidelityController;
-import com.ispw.progettoispw.Exception.BusinessRuleException;
-import com.ispw.progettoispw.Exception.OggettoInvalidoException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
-import com.ispw.progettoispw.Session.Session;
-import com.ispw.progettoispw.Session.SessionManager;
+import com.ispw.progettoispw.controller.controllerApplicativo.FidelityController;
+import com.ispw.progettoispw.exception.BusinessRuleException;
+import com.ispw.progettoispw.exception.OggettoInvalidoException;
+import com.ispw.progettoispw.exception.ValidazioneException;
+import com.ispw.progettoispw.session.Session;
+import com.ispw.progettoispw.session.SessionManager;
 import com.ispw.progettoispw.bean.FidelityBean;
 import com.ispw.progettoispw.bean.PrizeBean;
 import javafx.fxml.FXML;

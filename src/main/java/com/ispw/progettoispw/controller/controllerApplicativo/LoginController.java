@@ -1,12 +1,12 @@
-package com.ispw.progettoispw.Controller.ControllerApplicativo;
+package com.ispw.progettoispw.controller.controllerApplicativo;
 
-import com.ispw.progettoispw.Dao.GenericDao;
-import com.ispw.progettoispw.Enum.Role;
-import com.ispw.progettoispw.Exception.AutenticazioneException;
-import com.ispw.progettoispw.Exception.ValidazioneException;
-import com.ispw.progettoispw.Factory.DaoFactory;
-import com.ispw.progettoispw.Session.Session;
-import com.ispw.progettoispw.Session.SessionManager;
+import com.ispw.progettoispw.dao.GenericDao;
+import com.ispw.progettoispw.enu.Role;
+import com.ispw.progettoispw.exception.AutenticazioneException;
+import com.ispw.progettoispw.exception.ValidazioneException;
+import com.ispw.progettoispw.factory.DaoFactory;
+import com.ispw.progettoispw.session.Session;
+import com.ispw.progettoispw.session.SessionManager;
 import com.ispw.progettoispw.bean.LoginBean;
 import com.ispw.progettoispw.entity.Barbiere;
 import com.ispw.progettoispw.entity.Cliente;

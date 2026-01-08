@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.ApplicationFacade;
+package com.ispw.progettoispw.applicationFacade;
 
 import java.math.BigDecimal;
 import java.util.logging.Level;

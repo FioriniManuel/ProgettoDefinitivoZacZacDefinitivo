@@ -1,7 +1,7 @@
-package com.ispw.progettoispw.Controller.ControllerApplicativo;
+package com.ispw.progettoispw.controller.controllerApplicativo;
 
-import com.ispw.progettoispw.Enum.StorageOption;
-import com.ispw.progettoispw.Factory.DaoFactory;
+import com.ispw.progettoispw.enu.StorageOption;
+import com.ispw.progettoispw.factory.DaoFactory;
 
 public class MainController {
 

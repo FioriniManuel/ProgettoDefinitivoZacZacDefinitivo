@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="405.0" prefWidth="819.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.Controller.ControllerGrafico.Alternative.AreaPersonaleGUIAlternativeController">
+<AnchorPane prefHeight="405.0" prefWidth="819.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllerGrafico.alternative.AreaPersonaleGUIAlternativeController">
    <children>
       <Separator layoutX="565.0" layoutY="3.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="0.0" />
       <ScrollPane layoutY="-3.0" prefHeight="408.0" prefWidth="565.0">
