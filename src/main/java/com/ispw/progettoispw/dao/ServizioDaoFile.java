@@ -11,12 +11,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.logging.Level;
 
 import static com.ispw.progettoispw.enu.GenderCategory.DONNA;
 import static com.ispw.progettoispw.enu.GenderCategory.UOMO;
+import java.util.logging.Logger;
 
 public class ServizioDaoFile implements ReadOnlyDao<Servizio> {
-
+    private final Logger logger = Logger.getLogger(getClass().getName());
     private static final Path DATA_PATH = Paths.get(
             System.getProperty("user.home"),
             ".progettoispw", "data", "servizi.json"
@@ -101,12 +103,13 @@ public class ServizioDaoFile implements ReadOnlyDao<Servizio> {
                 return list;
             }
         } catch (EOFException | JsonSyntaxException e) {
-            System.err.println("WARN: servizi.json malformato: " + e.getMessage());
+            logger.log(Level.WARNING, "servizi.json malformato: {0}", e.getMessage());
+
             List<Servizio> seed = getDefaultSeed();
             persistInternal(seed);
             return seed;
         } catch (IOException io) {
-            System.err.println("WARN: lettura servizi.json: " + io.getMessage());
+            logger.log(Level.WARNING, "Errore lettura servizi.json: {0}", io.getMessage());
             List<Servizio> seed = getDefaultSeed();
             persistInternal(seed);
             return seed;
@@ -138,7 +141,7 @@ public class ServizioDaoFile implements ReadOnlyDao<Servizio> {
                     StandardCopyOption.REPLACE_EXISTING,
                     StandardCopyOption.ATOMIC_MOVE);
         } catch (IOException io) {
-            System.err.println("ERROR: salvataggio servizi.json fallito: " + io.getMessage());
+            logger.log(Level.WARNING, "ERROR: salvataggio servizi.json fallito: ", io.getMessage());
         }
     }
 

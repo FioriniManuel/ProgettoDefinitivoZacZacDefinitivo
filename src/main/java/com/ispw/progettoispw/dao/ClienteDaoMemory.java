@@ -44,7 +44,7 @@ public class ClienteDaoMemory implements GenericDao<Cliente> {
     @Override
     public void update(Cliente cliente) {
 
-    if(cliente==null || cliente.getId()==null) throw new IllegalArgumentException("Cliente/ Id null");
+    if(cliente==null || cliente.getId()==null){ throw new IllegalArgumentException("Cliente/ Id null");}
 
         Cliente old = storage.get(cliente.getId());
         if (old == null) throw new NoSuchElementException("Cliente inesistente: " + cliente.getId());
