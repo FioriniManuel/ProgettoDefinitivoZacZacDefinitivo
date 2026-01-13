@@ -69,13 +69,13 @@ public class LoginController {
     }
 
     private boolean basicValidate(LoginBean bean) {
-        if (bean == null) return false;
-        String email = bean.getEmail();
-        String pwd   = bean.getPassword();
-        if (email == null || email.isBlank()) return false;
-        if (pwd == null || pwd.isBlank())     return false;
-        return true;
+        return bean != null
+                && bean.getEmail() != null
+                && !bean.getEmail().isBlank()
+                && bean.getPassword() != null
+                && !bean.getPassword().isBlank();
     }
+
 
     private Cliente findClienteByEmail(String emailNorm) {
         return clienteDao.readAll().stream()

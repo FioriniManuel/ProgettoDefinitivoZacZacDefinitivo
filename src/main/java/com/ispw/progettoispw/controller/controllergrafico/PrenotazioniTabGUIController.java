@@ -83,24 +83,7 @@ public class PrenotazioniTabGUIController extends GraphicController {
         appointmentsList.setItems(FXCollections.observableArrayList(list));
     }
 
-    private String buildRowText(BookingBean b) {
-        String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
-                ? b.getServiceName()
-                : "Servizio";
 
-        String start = (b.getStartTime() == null) ? "--:--" : b.getStartTime().format(TF);
-        String end   = (b.getEndTime() == null) ? "--:--" : b.getEndTime().format(TF);
-        String range = start + "-" + end;
-
-        String price = (b.getPrezzoTotale() == null) ? "-" : (b.getPrezzoTotale().toPlainString() + " €");
-        String stato = (b.getStatus() == null) ? "-" : b.getStatus().name();
-
-        return nomeServizio + " | " + range + " | " + price + " | " + stato;
-    }
-
-    private boolean isFinalState(BookingBean b) {
-        return b.getStatus() == AppointmentStatus.CANCELLED || b.getStatus() == AppointmentStatus.COMPLETED;
-    }
 
     private void handleComplete(BookingBean b, Runnable refreshUi) {
         if (b == null) return;
@@ -188,11 +171,47 @@ public class PrenotazioniTabGUIController extends GraphicController {
         }
 
         private void updateButtons(BookingBean b) {
-            boolean disable = isFinalState(b);
+            boolean disable = isFinalState(b.getStatus());
             completeBtn.setDisable(disable);
             cancelBtn.setDisable(disable);
         }
+
+    /* ===========================
+       METODI SPOSTATI QUI
+       =========================== */
+
+        private boolean isFinalState(AppointmentStatus status) {
+            return status == AppointmentStatus.CANCELLED
+                    || status == AppointmentStatus.COMPLETED;
+        }
+
+        private String buildRowText(BookingBean b) {
+            String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
+                    ? b.getServiceName()
+                    : "Servizio";
+
+            String start = (b.getStartTime() == null)
+                    ? "--:--"
+                    : b.getStartTime().format(TF);
+
+            String end = (b.getEndTime() == null)
+                    ? "--:--"
+                    : b.getEndTime().format(TF);
+
+            String range = start + "-" + end;
+
+            String price = (b.getPrezzoTotale() == null)
+                    ? "-"
+                    : (b.getPrezzoTotale().toPlainString() + " €");
+
+            String stato = (b.getStatus() == null)
+                    ? "-"
+                    : b.getStatus().name();
+
+            return nomeServizio + " | " + range + " | " + price + " | " + stato;
+        }
     }
+
 
     @FXML
     public void indietroButtonOnAction() {
