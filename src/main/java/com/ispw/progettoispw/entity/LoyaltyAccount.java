@@ -1,7 +1,7 @@
 package com.ispw.progettoispw.entity;
 
 public class LoyaltyAccount {
-    private String LoyaltyAccountId;
+    private String loyaltyaccountid;
     private String clientId;
     private int currentPoints;
     private int lifetimeEarned;
@@ -9,8 +9,8 @@ public class LoyaltyAccount {
 
     public LoyaltyAccount(){}
 
-    public LoyaltyAccount(String LoyaltyAccountId,String clientId){
-        this.LoyaltyAccountId=LoyaltyAccountId;
+    public LoyaltyAccount(String loyaltyaccount,String clientId){
+        this.loyaltyaccountid =loyaltyaccount;
         this.clientId=clientId;
         this.currentPoints=0;
         this.lifetimeEarned=0;
@@ -25,12 +25,12 @@ public class LoyaltyAccount {
     // GETTER / SETTER
 
 
-    public String getLoyaltyAccountId() {
-        return LoyaltyAccountId;
+    public String getLoyaltyaccountid() {
+        return loyaltyaccountid;
     }
 
-    public void setLoyaltyAccountId(String loyaltyAccountId) {
-        LoyaltyAccountId = loyaltyAccountId;
+    public void setLoyaltyaccountid(String loyaltyaccountid) {
+        this.loyaltyaccountid = loyaltyaccountid;
     }
 
     public String getClientId() {

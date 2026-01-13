@@ -53,7 +53,7 @@ public class LoyaltyAccountDaoFile implements GenericDao<LoyaltyAccount> {
                 if (list != null) {
                     for (LoyaltyAccount acc : list) {
                         if (acc == null) continue;
-                        String id = acc.getLoyaltyAccountId();
+                        String id = acc.getLoyaltyaccountid();
                         String clientId = acc.getClientId();
                         if (id == null || id.isBlank() || clientId == null || clientId.isBlank()) {
                             // ignoro record malformati
@@ -88,10 +88,10 @@ public class LoyaltyAccountDaoFile implements GenericDao<LoyaltyAccount> {
         Objects.requireNonNull(acc, "LoyaltyAccount null");
 
         synchronized (lock) {
-            if (acc.getLoyaltyAccountId() == null || acc.getLoyaltyAccountId().isBlank()) {
-                acc.setLoyaltyAccountId(UUID.randomUUID().toString());
+            if (acc.getLoyaltyaccountid() == null || acc.getLoyaltyaccountid().isBlank()) {
+                acc.setLoyaltyaccountid(UUID.randomUUID().toString());
             }
-            final String id = acc.getLoyaltyAccountId();
+            final String id = acc.getLoyaltyaccountid();
 
             String clientId = acc.getClientId();
             if (clientId == null || clientId.isBlank()) {
@@ -125,7 +125,7 @@ public class LoyaltyAccountDaoFile implements GenericDao<LoyaltyAccount> {
     @Override
     public void update(LoyaltyAccount acc) {
         if (acc == null) throw new IllegalArgumentException("LoyaltyAccount null");
-        String id = acc.getLoyaltyAccountId();
+        String id = acc.getLoyaltyaccountid();
         if (id == null || id.isBlank()) throw new IllegalArgumentException("id mancante");
 
         synchronized (lock) {

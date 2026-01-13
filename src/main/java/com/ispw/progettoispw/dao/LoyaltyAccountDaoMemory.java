@@ -23,10 +23,10 @@ public class LoyaltyAccountDaoMemory implements GenericDao<LoyaltyAccount> {
         Objects.requireNonNull(acc, "LoyaltyAccount null");
 
         // assicura un id
-        if (acc.getLoyaltyAccountId() == null || acc.getLoyaltyAccountId().isBlank()) {
-            acc.setLoyaltyAccountId(UUID.randomUUID().toString());
+        if (acc.getLoyaltyaccountid() == null || acc.getLoyaltyaccountid().isBlank()) {
+            acc.setLoyaltyaccountid(UUID.randomUUID().toString());
         }
-        final String id = acc.getLoyaltyAccountId();
+        final String id = acc.getLoyaltyaccountid();
 
         // vincolo: un clientId può avere un solo loyalty account
         String clientId = acc.getClientId();
@@ -62,7 +62,7 @@ public class LoyaltyAccountDaoMemory implements GenericDao<LoyaltyAccount> {
     @Override
     public void update(LoyaltyAccount acc) {
         if (acc == null) throw new IllegalArgumentException("LoyaltyAccount null");
-        String id = acc.getLoyaltyAccountId();
+        String id = acc.getLoyaltyaccountid();
         if (id == null || id.isBlank()) throw new IllegalArgumentException("id mancante");
 
         LoyaltyAccount current = byId.get(id);
