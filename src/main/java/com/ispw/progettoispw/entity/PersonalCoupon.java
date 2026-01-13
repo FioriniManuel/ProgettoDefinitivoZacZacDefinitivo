@@ -5,9 +5,9 @@ import com.ispw.progettoispw.enu.CouponStatus;
 import java.math.BigDecimal;
 
 public class PersonalCoupon {
-    private String CouponId;
-    private String ClientId;
-    private String Code;
+    private String couponid;
+    private String clientid;
+    private String code;
     private BigDecimal value;
     private CouponStatus status;
     private String note;
@@ -26,11 +26,11 @@ public class PersonalCoupon {
 
 
     public String getClientId() {
-        return ClientId;
+        return clientid;
     }
 
     public void setClientId(String clientId) {
-        ClientId = clientId;
+        clientid = clientId;
     }
 
     public void setStatus(CouponStatus status) {
@@ -50,19 +50,19 @@ public class PersonalCoupon {
     }
 
     public String getCouponId() {
-        return CouponId;
+        return couponid;
     }
 
     public void setCouponId(String couponId) {
-        CouponId = couponId;
+        couponid = couponId;
     }
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
     public void setCode(String code) {
-        Code = code;
+        this.code = code;
     }
 
     public void setNote(String note) {
