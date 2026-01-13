@@ -1,13 +1,10 @@
 package com.ispw.progettoispw.controller.controllerapplicativo;
 
 import com.ispw.progettoispw.applicationfacade.ApplicationFacade;
-import com.ispw.progettoispw.dao.GenericDao;
+import com.ispw.progettoispw.exception.ConflittoPrenotazioneException;
 import com.ispw.progettoispw.dao.ReadOnlyDao;
 import com.ispw.progettoispw.enu.AppointmentStatus;
 import com.ispw.progettoispw.enu.GenderCategory;
-import com.ispw.progettoispw.enu.PaymentChannel;
-import com.ispw.progettoispw.exception.BusinessRuleException;
-import com.ispw.progettoispw.exception.ConflittoPrenotazioneException;
 import com.ispw.progettoispw.exception.OggettoInvalidoException;
 import com.ispw.progettoispw.exception.ValidazioneException;
 import com.ispw.progettoispw.factory.DaoFactory;
@@ -17,7 +14,10 @@ import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.bean.ServizioBean;
 import com.ispw.progettoispw.entity.Appuntamento;
 import com.ispw.progettoispw.entity.Barbiere;
+import com.ispw.progettoispw.enu.PaymentChannel;
+import com.ispw.progettoispw.exception.BusinessRuleException;
 import com.ispw.progettoispw.entity.Servizio;
+import com.ispw.progettoispw.dao.GenericDao;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
