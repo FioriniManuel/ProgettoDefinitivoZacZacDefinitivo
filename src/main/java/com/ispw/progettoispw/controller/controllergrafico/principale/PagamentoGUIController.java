@@ -1,7 +1,8 @@
-package com.ispw.progettoispw.controller.controllergrafico;
+package com.ispw.progettoispw.controller.controllergrafico.principale;
 
 import com.ispw.progettoispw.controller.controllerapplicativo.BookingController;
 import com.ispw.progettoispw.controller.controllerapplicativo.CouponController;
+import com.ispw.progettoispw.controller.controllergrafico.GraphicController;
 import com.ispw.progettoispw.exception.ConflittoPrenotazioneException;
 import com.ispw.progettoispw.exception.OggettoInvalidoException;
 import com.ispw.progettoispw.exception.ValidazioneException;

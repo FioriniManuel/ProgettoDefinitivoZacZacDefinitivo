@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="511.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllergrafico.NotImplementedGUIController">
+<AnchorPane prefHeight="511.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllergrafico.principale.NotImplementedGUIController">
    <children>
       <Pane layoutX="36.0" layoutY="66.0" prefHeight="374.0" prefWidth="515.0" style="-fx-background-color: e3e3e3;">
          <children>

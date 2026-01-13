@@ -1,6 +1,6 @@
-package com.ispw.progettoispw.controller.controllergrafico;
+package com.ispw.progettoispw.controller.controllergrafico.principale;
 
-import javafx.event.ActionEvent;
+import com.ispw.progettoispw.controller.controllergrafico.GraphicController;
 
 public class IniziamoGUIController extends GraphicController {
 

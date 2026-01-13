@@ -1,8 +1,9 @@
-package com.ispw.progettoispw.controller.controllergrafico;
+package com.ispw.progettoispw.controller.controllergrafico.principale;
 
 import com.ispw.progettoispw.bean.BarbiereBean;
 import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.controller.controllerapplicativo.BookingController;
+import com.ispw.progettoispw.controller.controllergrafico.GraphicController;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

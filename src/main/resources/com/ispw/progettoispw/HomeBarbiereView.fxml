@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="268.0" prefWidth="600.0" style="-fx-background-color: e3e3e3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllergrafico.HomeBarbiereGUIController">
+<Pane prefHeight="268.0" prefWidth="600.0" style="-fx-background-color: e3e3e3;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ispw.progettoispw.controller.controllergrafico.principale.HomeBarbiereGUIController">
     <children>
         <Label alignment="CENTER" layoutX="-9.0" prefHeight="17.0" prefWidth="607.0" text="Centro di Gestione Zac Zac">
             <font><Font size="24.0" /></font>

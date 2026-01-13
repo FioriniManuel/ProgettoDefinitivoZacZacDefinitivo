@@ -1,6 +1,7 @@
-package com.ispw.progettoispw.controller.controllergrafico;
+package com.ispw.progettoispw.controller.controllergrafico.principale;
 
 import com.ispw.progettoispw.controller.controllerapplicativo.RegistrazioneController;
+import com.ispw.progettoispw.controller.controllergrafico.GraphicController;
 import com.ispw.progettoispw.enu.GenderCategory;
 import com.ispw.progettoispw.enu.Role;
 import com.ispw.progettoispw.exception.DuplicateCredentialException;

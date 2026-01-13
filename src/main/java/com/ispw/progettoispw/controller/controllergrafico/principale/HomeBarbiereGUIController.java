@@ -1,6 +1,7 @@
-package com.ispw.progettoispw.controller.controllergrafico;
+package com.ispw.progettoispw.controller.controllergrafico.principale;
 
 import com.ispw.progettoispw.controller.controllerapplicativo.LoginController;
+import com.ispw.progettoispw.controller.controllergrafico.GraphicController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
