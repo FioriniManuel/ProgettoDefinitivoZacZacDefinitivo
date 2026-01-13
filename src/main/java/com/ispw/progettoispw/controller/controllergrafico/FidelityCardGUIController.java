@@ -79,21 +79,21 @@ public class FidelityCardGUIController extends GraphicController {
         PrizeBean p2 = find("P2");
         PrizeBean p3 = find("P3");
         if (p1 != null) {
-            puntiPrimoPremioLabel.setText(String.valueOf(p1.getRequiredPoints()));
+            puntiPrimoPremioLabel.setText(String.valueOf(p1.getRequiredpoints()));
             primoPremioLabel.setText(descrizionePremio(p1));
         }
         if (p2 != null) {
-            puntiSecondoPremioLabel.setText(String.valueOf(p2.getRequiredPoints()));
+            puntiSecondoPremioLabel.setText(String.valueOf(p2.getRequiredpoints()));
             secondoPremioLabel.setText(descrizionePremio(p2));
         }
         if (p3 != null) {
-            puntiTerzoPremioLabel.setText(String.valueOf(p3.getRequiredPoints()));
+            puntiTerzoPremioLabel.setText(String.valueOf(p3.getRequiredpoints()));
             terzoPremioLabel.setText(descrizionePremio(p3));
         }
 
-        if (p1 != null) prize1Radio.setDisable(points < p1.getRequiredPoints());
-        if (p2 != null) prize2Radio.setDisable(points < p2.getRequiredPoints());
-        if (p3 != null) prize3Radio.setDisable(points < p3.getRequiredPoints());
+        if (p1 != null) prize1Radio.setDisable(points < p1.getRequiredpoints());
+        if (p2 != null) prize2Radio.setDisable(points < p2.getRequiredpoints());
+        if (p3 != null) prize3Radio.setDisable(points < p3.getRequiredpoints());
     }
 
     private PrizeBean find(String id) {

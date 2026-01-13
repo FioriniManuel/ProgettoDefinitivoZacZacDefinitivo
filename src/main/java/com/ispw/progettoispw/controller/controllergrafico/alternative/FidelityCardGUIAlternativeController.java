@@ -75,9 +75,9 @@ public class FidelityCardGUIAlternativeController extends GraphicController {
             return;
         }
 
-        if (ptsLabel != null)  ptsLabel.setText(String.valueOf(p.getRequiredPoints()));
+        if (ptsLabel != null)  ptsLabel.setText(String.valueOf(p.getRequiredpoints()));
         if (descLabel != null) descLabel.setText(descrizionePremio(p));
-        if (redeemBtn != null) redeemBtn.setDisable(points < p.getRequiredPoints());
+        if (redeemBtn != null) redeemBtn.setDisable(points < p.getRequiredpoints());
     }
 
     private PrizeBean find(String id) {
