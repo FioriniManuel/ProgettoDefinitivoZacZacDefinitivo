@@ -82,7 +82,7 @@ class RegistrationControllerTest {
     // ---------- tests ----------
 
     @Test
-    void registerCliente_success_creaLoyaltyAccount() throws Exception {
+    void registerCliente_success_creaLoyaltyAccount()  {
         RegistrationBean bean = makeClientBean("m.rossi@example.com", "333 123 4567");
 
         assertDoesNotThrow(() -> controller.register(bean));
@@ -110,7 +110,7 @@ class RegistrationControllerTest {
 
         RegistrationBean bean = makeClientBean("dup@example.com", "3332223333");
 
-        DuplicateCredentialException ex = assertThrows(
+        assertThrows(
                 DuplicateCredentialException.class,
                 () -> controller.register(bean)
         );
@@ -122,7 +122,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void registerBarbiere_success_activeTrueESpecializzazione() throws Exception {
+    void registerBarbiere_success_activeTrueESpecializzazione()  {
         RegistrationBean bean = makeBarberBean("barber@example.com", "+39 333-987-6543", GenderCategory.DONNA);
 
         assertDoesNotThrow(() -> controller.register(bean));
@@ -158,7 +158,7 @@ class RegistrationControllerTest {
         RegistrationBean bean = makeClientBean("bad@example.com", "3334445555");
         bean.setRepeatPassword("diversa");
 
-        ValidazioneException ex = assertThrows(
+        assertThrows(
                 ValidazioneException.class,
                 () -> controller.register(bean)
         );
