@@ -144,6 +144,24 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
         // Spostato qui per incapsulare la logica della UI (richiesta Sonar)
         private boolean isFinalState(AppointmentStatus status) {
             return status == AppointmentStatus.CANCELLED || status == AppointmentStatus.COMPLETED;
+
+        }
+        private String buildRowText(BookingBean b) {
+            String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
+                    ? b.getServiceName()
+                    : "Servizio";
+
+            String range = (b.getStartTime() == null || b.getEndTime() == null)
+                    ? "-"
+                    : (b.getStartTime().format(TF) + "-" + b.getEndTime().format(TF));
+
+            String price = (b.getPrezzoTotale() == null)
+                    ? "-"
+                    : (b.getPrezzoTotale().toPlainString() + " €");
+
+            String stato = (b.getStatus() == null) ? "-" : b.getStatus().name();
+
+            return nomeServizio + " | " + range + " | " + price + " | " + stato;
         }
     }
 
@@ -240,23 +258,7 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
         appointmentsList.setItems(FXCollections.observableArrayList(list));
     }
 
-    private String buildRowText(BookingBean b) {
-        String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
-                ? b.getServiceName()
-                : "Servizio";
 
-        String range = (b.getStartTime() == null || b.getEndTime() == null)
-                ? "-"
-                : (b.getStartTime().format(TF) + "-" + b.getEndTime().format(TF));
-
-        String price = (b.getPrezzoTotale() == null)
-                ? "-"
-                : (b.getPrezzoTotale().toPlainString() + " €");
-
-        String stato = (b.getStatus() == null) ? "-" : b.getStatus().name();
-
-        return nomeServizio + " | " + range + " | " + price + " | " + stato;
-    }
 
     @FXML
     private void notImplementedOnAction() {

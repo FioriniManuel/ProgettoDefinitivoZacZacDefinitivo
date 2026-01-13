@@ -94,5 +94,5 @@ public class BarbiereDaoMemory implements GenericDao<Barbiere> {
 
    // Normalizza numeri: rimuove spazi, -, ( ), e prefisso +39 opzionale
    private String normalizePhone(String phone) {
-      return phone.replaceAll("\\s+", "");;
+      return phone.replaceAll("\\s+", "");
    }}

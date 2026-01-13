@@ -75,7 +75,9 @@ public class FidelityCardGUIController extends GraphicController {
         prizes = fidelityService.listPrizesVM();
         bean.setPrizes(prizes);
 
-        PrizeBean p1 = find("P1"), p2 = find("P2"), p3 = find("P3");
+        PrizeBean p1 = find("P1");
+        PrizeBean p2 = find("P2");
+        PrizeBean p3 = find("P3");
         if (p1 != null) {
             puntiPrimoPremioLabel.setText(String.valueOf(p1.getRequiredPoints()));
             primoPremioLabel.setText(descrizionePremio(p1));

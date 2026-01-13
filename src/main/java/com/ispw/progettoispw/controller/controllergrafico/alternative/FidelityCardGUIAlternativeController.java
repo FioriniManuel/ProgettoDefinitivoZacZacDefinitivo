@@ -56,9 +56,9 @@ public class FidelityCardGUIAlternativeController extends GraphicController {
 
         prizes = fidelityService.listPrizesVM();
 
-        PrizeBean p1 = find("P1"),
-                p2 = find("P2"),
-                p3 = find("P3");
+        PrizeBean p1 = find("P1");
+        PrizeBean p2 = find("P2");
+        PrizeBean p3 = find("P3");
 
         bindPrize(points, p1, puntiNec1Label, premio1Label, redeemBtn1);
         bindPrize(points, p2, puntiNec2Label, premio2Label, redeemBtn2);
