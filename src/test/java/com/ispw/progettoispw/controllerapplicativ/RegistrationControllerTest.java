@@ -1,4 +1,4 @@
-package com.ispw.progettoispw.controllerapplicativo;
+package com.ispw.progettoispw.controllerapplicativ;
 
 import com.ispw.progettoispw.controller.controllerapplicativo.RegistrazioneController;
 import com.ispw.progettoispw.dao.GenericDao;
