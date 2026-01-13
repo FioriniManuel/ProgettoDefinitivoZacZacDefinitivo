@@ -66,7 +66,7 @@ public class BarbiereDaoFile implements GenericDao<Barbiere> {
         String email = (String) keys[0];
 
         return barbiere.stream()
-                .filter(barbiere-> barbiere.getEmail().equals(email))
+                .filter(b-> b.getEmail().equals(email))
                 .findFirst()
                 .orElse(null);
     }
@@ -90,7 +90,7 @@ public class BarbiereDaoFile implements GenericDao<Barbiere> {
         }
         String email = (String) keys[0];
 
-        barbiere.removeIf(barbiere -> barbiere.getEmail().equals(email));
+        barbiere.removeIf(b -> b.getEmail().equals(email));
         saveToFile();
     }
 
