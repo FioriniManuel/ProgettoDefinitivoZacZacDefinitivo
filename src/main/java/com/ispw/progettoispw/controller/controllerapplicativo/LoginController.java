@@ -13,6 +13,7 @@ import com.ispw.progettoispw.entity.Cliente;
 import com.ispw.progettoispw.entity.User;
 
 import java.util.Objects;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LoginController {
@@ -100,7 +101,9 @@ public class LoginController {
         );
 
         SessionManager.getInstance().login(session);
-        logger.info(String.format("Login OK: %s (%s) %s", user.getEmail(), role, user.getId()));
+        logger.log(Level.INFO, "Login OK: {0} ({1}) {2}",
+                new Object[]{user.getEmail(), role, user.getId()});
+
 
     }
 
