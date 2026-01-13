@@ -32,6 +32,7 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
     private static final String MSG_ALREADY_CANCELLED = "Appuntamento già cancellato.";
     private static final String MSG_ALREADY_COMPLETED = "Appuntamento già completato.";
     private static final String MSG_CANNOT_CANCEL_COMPLETED = "Impossibile cancellare: già completato.";
+    private static final String DEFAULT_BARBER_NAME = "Barbiere";
 
     @FXML private Label nomeBarbiere;
     @FXML private Button btnEsci;
@@ -49,28 +50,28 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
     private void initialize() {
         setupBarberInfo();
         setupLogout();
-
         setupAppointmentsList();
         setupDateField();
-
         applyDateFromField();
     }
 
     private void setupBarberInfo() {
         barberId = LoginController.getId();
-
         String barberName = LoginController.getName();
-        String displayName = (barberName != null && !barberName.isBlank()) ? barberName : "Barbiere";
-        nomeBarbiere.setText(displayName);
+        String displayName = (barberName != null && !barberName.isBlank()) ? barberName : DEFAULT_BARBER_NAME;
+        if (nomeBarbiere != null) {
+            nomeBarbiere.setText(displayName);
+        }
     }
 
     private void setupLogout() {
-        btnEsci.setOnAction(e -> doLogout());
+        if (btnEsci != null) {
+            btnEsci.setOnAction(e -> doLogout());
+        }
     }
 
     private void setupAppointmentsList() {
         if (appointmentsList == null) return;
-
         appointmentsList.setPlaceholder(new Label(PLACEHOLDER_NO_APPOINTMENTS));
         appointmentsList.setCellFactory(list -> new AppointmentCell());
     }
@@ -81,10 +82,9 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
         LocalDate today = LocalDate.now();
         dateTextField.setTextFormatter(new TextFormatter<>(dateMaskFilter()));
         dateTextField.setText(DF.format(today));
-
         dateTextField.setOnAction(e -> applyDateFromField());
         dateTextField.focusedProperty().addListener((obs, was, is) -> {
-            if (is) return; // guard clause -> riduce complessità
+            if (is) return;
             applyDateFromField();
         });
     }
@@ -140,24 +140,29 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
             completeBtn.setDisable(disable);
             cancelBtn.setDisable(disable);
         }
-    }
 
-    private boolean isFinalState(AppointmentStatus status) {
-        return status == AppointmentStatus.CANCELLED || status == AppointmentStatus.COMPLETED;
+        // Spostato qui per incapsulare la logica della UI (richiesta Sonar)
+        private boolean isFinalState(AppointmentStatus status) {
+            return status == AppointmentStatus.CANCELLED || status == AppointmentStatus.COMPLETED;
+        }
     }
 
     private void onComplete(BookingBean b, Runnable refreshUi) {
         if (b == null) return;
 
-        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo(MSG_ALREADY_CANCELLED); return; }
-        if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo(MSG_ALREADY_COMPLETED); return; }
+        if (b.getStatus() == AppointmentStatus.CANCELLED) {
+            showInfo(MSG_ALREADY_CANCELLED);
+            return;
+        }
+        if (b.getStatus() == AppointmentStatus.COMPLETED) {
+            showInfo(MSG_ALREADY_COMPLETED);
+            return;
+        }
 
         try {
             bookingController.updateAppointmentStatus(b.getAppointmentId(), AppointmentStatus.COMPLETED);
             b.setStatus(AppointmentStatus.COMPLETED);
-
             addLoyaltyPointsIfPossible(b);
-
             refreshUi.run();
         } catch (ValidazioneException | OggettoInvalidoException ex) {
             showError(ex.getMessage());
@@ -169,13 +174,18 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
     private void onCancel(BookingBean b, Runnable refreshUi) {
         if (b == null) return;
 
-        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo(MSG_ALREADY_CANCELLED); return; }
-        if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo(MSG_CANNOT_CANCEL_COMPLETED); return; }
+        if (b.getStatus() == AppointmentStatus.CANCELLED) {
+            showInfo(MSG_ALREADY_CANCELLED);
+            return;
+        }
+        if (b.getStatus() == AppointmentStatus.COMPLETED) {
+            showInfo(MSG_CANNOT_CANCEL_COMPLETED);
+            return;
+        }
 
         try {
             bookingController.updateAppointmentStatus(b.getAppointmentId(), AppointmentStatus.CANCELLED);
             b.setStatus(AppointmentStatus.CANCELLED);
-
             refreshUi.run();
         } catch (ValidazioneException | OggettoInvalidoException ex) {
             showError(ex.getMessage());
@@ -186,7 +196,6 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
 
     private void addLoyaltyPointsIfPossible(BookingBean b) {
         if (b.getClienteId() == null || b.getClienteId().isBlank()) return;
-
         int pt = couponController.computePointsToAward(b.getPrezzoTotale());
         loyal.addPoints(b.getClienteId(), pt);
     }
@@ -233,13 +242,17 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
 
     private String buildRowText(BookingBean b) {
         String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
-                ? b.getServiceName() : "Servizio";
+                ? b.getServiceName()
+                : "Servizio";
 
         String range = (b.getStartTime() == null || b.getEndTime() == null)
                 ? "-"
                 : (b.getStartTime().format(TF) + "-" + b.getEndTime().format(TF));
 
-        String price = (b.getPrezzoTotale() == null) ? "-" : (b.getPrezzoTotale().toPlainString() + " €");
+        String price = (b.getPrezzoTotale() == null)
+                ? "-"
+                : (b.getPrezzoTotale().toPlainString() + " €");
+
         String stato = (b.getStatus() == null) ? "-" : b.getStatus().name();
 
         return nomeServizio + " | " + range + " | " + price + " | " + stato;
