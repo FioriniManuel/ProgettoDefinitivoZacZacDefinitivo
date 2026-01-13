@@ -6,7 +6,7 @@ Il progetto utilizza:
 
 SonarCloud per l'analisi statica del codice
 
-Controllo di Code Smell, Bug e Vulnerabilità
+Controllo di Code Smell, Bug e Vulnerabilità, Security Hotspot
 
 Miglioramento continuo della qualità
 
