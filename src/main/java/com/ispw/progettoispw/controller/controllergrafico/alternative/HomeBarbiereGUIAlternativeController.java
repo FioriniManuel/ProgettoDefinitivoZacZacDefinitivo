@@ -27,12 +27,12 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
             .withResolverStyle(ResolverStyle.STRICT);
     private static final DateTimeFormatter TF = DateTimeFormatter.ofPattern("HH:mm");
 
-    private static final String PLACEHOLDER_NO_APPOINTMENTS = "Nessuna prenotazione per la data selezionata.";
-    private static final String MSG_TECH_ERROR = "Errore tecnico.";
-    private static final String MSG_ALREADY_CANCELLED = "Appuntamento già cancellato.";
-    private static final String MSG_ALREADY_COMPLETED = "Appuntamento già completato.";
-    private static final String MSG_CANNOT_CANCEL_COMPLETED = "Impossibile cancellare: già completato.";
-    private static final String DEFAULT_BARBER_NAME = "Barbiere";
+    private static final String NO_APPOINTMENTS = "Nessuna prenotazione per la data selezionata.";
+    private static final String TECH_ERROR = "Errore tecnico.";
+    private static final String ALREADY_CANCELLED = "Appuntamento già cancellato.";
+    private static final String ALREADY_COMPLETED = "Appuntamento già completato.";
+    private static final String CANNOT_CANCEL_COMPLETED = "Impossibile cancellare: già completato.";
+    private static final String BARBER_NAME = "Barbiere";
 
     @FXML private Label nomeBarbiere;
     @FXML private Button btnEsci;
@@ -58,7 +58,7 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
     private void setupBarberInfo() {
         barberId = LoginController.getId();
         String barberName = LoginController.getName();
-        String displayName = (barberName != null && !barberName.isBlank()) ? barberName : DEFAULT_BARBER_NAME;
+        String displayName = (barberName != null && !barberName.isBlank()) ? barberName : BARBER_NAME;
         if (nomeBarbiere != null) {
             nomeBarbiere.setText(displayName);
         }
@@ -72,7 +72,7 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
 
     private void setupAppointmentsList() {
         if (appointmentsList == null) return;
-        appointmentsList.setPlaceholder(new Label(PLACEHOLDER_NO_APPOINTMENTS));
+        appointmentsList.setPlaceholder(new Label(NO_APPOINTMENTS));
         appointmentsList.setCellFactory(list -> new AppointmentCell());
     }
 
@@ -169,11 +169,11 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
         if (b == null) return;
 
         if (b.getStatus() == AppointmentStatus.CANCELLED) {
-            showInfo(MSG_ALREADY_CANCELLED);
+            showInfo(ALREADY_CANCELLED);
             return;
         }
         if (b.getStatus() == AppointmentStatus.COMPLETED) {
-            showInfo(MSG_ALREADY_COMPLETED);
+            showInfo(ALREADY_COMPLETED);
             return;
         }
 
@@ -185,7 +185,7 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
         } catch (ValidazioneException | OggettoInvalidoException ex) {
             showError(ex.getMessage());
         } catch (Exception ex) {
-            showError(MSG_TECH_ERROR);
+            showError(TECH_ERROR);
         }
     }
 
@@ -193,11 +193,11 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
         if (b == null) return;
 
         if (b.getStatus() == AppointmentStatus.CANCELLED) {
-            showInfo(MSG_ALREADY_CANCELLED);
+            showInfo(ALREADY_CANCELLED);
             return;
         }
         if (b.getStatus() == AppointmentStatus.COMPLETED) {
-            showInfo(MSG_CANNOT_CANCEL_COMPLETED);
+            showInfo(CANNOT_CANCEL_COMPLETED);
             return;
         }
 
@@ -208,7 +208,7 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
         } catch (ValidazioneException | OggettoInvalidoException ex) {
             showError(ex.getMessage());
         } catch (Exception ex) {
-            showError(MSG_TECH_ERROR);
+            showError(TECH_ERROR);
         }
     }
 
