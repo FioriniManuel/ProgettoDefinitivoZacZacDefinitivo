@@ -1,7 +1,6 @@
 package com.ispw.progettoispw.applicationfacade;
 
 import java.math.BigDecimal;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,10 +26,8 @@ public class PaymentService {
         logger.log(Level.INFO,"Controllo CVV: {0}",cvv);
         logger.log(Level.INFO, "Importo: {0} {1}", new Object[]{amount, "€"});
 
-        // Simulazione probabilistica: non legata a sicurezza
-        if( ThreadLocalRandom.current().nextDouble()  < 0.9){
             return "success";
+
         }
-        else{return "unsuccess";}
     }
-}
+
