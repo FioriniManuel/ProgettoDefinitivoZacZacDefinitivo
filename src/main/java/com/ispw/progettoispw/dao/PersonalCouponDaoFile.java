@@ -228,7 +228,7 @@ public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
         synchronized (lock) {
             return byId.values().stream()
                     .sorted(Comparator.comparing(PersonalCoupon::getCode, Comparator.nullsLast(String::compareTo)))
-                    .collect(Collectors.toUnmodifiableList());
+                    .toList();
         }
     }
 
@@ -236,15 +236,7 @@ public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
     /**
      * Tutti i coupon di un cliente.
      */
-    public List<PersonalCoupon> findByClient(String clientId) {
-        if (clientId == null) return List.of();
-        synchronized (lock) {
-            Set<String> ids = idsByClient.getOrDefault(clientId, Set.of());
-            return ids.stream().map(byId::get).filter(Objects::nonNull)
-                    .sorted(Comparator.comparing(PersonalCoupon::getCode, Comparator.nullsLast(String::compareTo)))
-                    .collect(Collectors.toUnmodifiableList());
-        }
-    }
+
 
 
 }

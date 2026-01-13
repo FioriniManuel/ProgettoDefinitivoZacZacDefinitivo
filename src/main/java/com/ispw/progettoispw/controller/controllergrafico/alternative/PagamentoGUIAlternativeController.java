@@ -237,10 +237,18 @@ public class PagamentoGUIAlternativeController extends GraphicController {
     }
 
     private static String safeText(TextField tf) {
-        return tf == null ? "" : (tf.getText() == null ? "" : tf.getText().trim());
+        if (tf == null || tf.getText() == null) {
+            return "";
+        }
+        return tf.getText().trim();
     }
 
+
     private static String safeText(PasswordField pf) {
-        return pf == null ? "" : (pf.getText() == null ? "" : pf.getText().trim());
+        if (pf == null || pf.getText() == null) {
+            return "";
+        }
+        return pf.getText().trim();
     }
+
 }
