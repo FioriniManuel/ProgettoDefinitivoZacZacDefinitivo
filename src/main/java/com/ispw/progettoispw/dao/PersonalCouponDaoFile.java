@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.stream.Collectors;
+
 
 /**
  * DAO file-based per PersonalCoupon con indici:
@@ -58,21 +58,26 @@ public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
                 List<PersonalCoupon> list = gson.fromJson(r, listType);
                 if (list != null) {
                     for (PersonalCoupon c : list) {
-                        if (c == null) continue;
-                        String id = c.getCouponId();
-                        String client = c.getClientId();
-                        String code = normCode(c.getCode());
-                        if (id == null || id.isBlank() || client == null || client.isBlank() || code == null || code.isEmpty()) {
-                            // ignoro record malformati
-                            continue;
+                        if (c != null) {
+                            String id = c.getCouponId();
+                            String client = c.getClientId();
+                            String code = normCode(c.getCode());
+
+                            boolean valid =
+                                    id != null && !id.isBlank()
+                                            && client != null && !client.isBlank()
+                                            && code != null && !code.isEmpty();
+
+                            if (valid) {
+                                byId.put(id, c);
+                                addToIndex(idsByClient, client, id);
+                                idByCode.put(code, id);
+                                addToIndex(idsByStatus, c.getStatus(), id);
+                            }
                         }
-                        // byId
-                        byId.put(id, c);
-                        // indici
-                        addToIndex(idsByClient, client, id);
-                        idByCode.put(code, id);
-                        addToIndex(idsByStatus, c.getStatus(), id);
                     }
+
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
