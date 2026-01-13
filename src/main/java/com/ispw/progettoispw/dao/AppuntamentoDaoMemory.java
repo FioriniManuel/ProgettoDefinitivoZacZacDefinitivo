@@ -115,7 +115,7 @@ public class AppuntamentoDaoMemory implements GenericDao<Appuntamento> {
         return byId.values().stream()
                 .sorted(Comparator.comparing(Appuntamento::getDate)
                         .thenComparing(Appuntamento::getSlotIndex))
-                .collect(Collectors.toUnmodifiableList());
+                .toList();
     }
 
 
