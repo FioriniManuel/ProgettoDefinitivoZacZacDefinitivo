@@ -14,7 +14,7 @@ import java.util.Objects;
 public class ApplicationFacade {
 
 
-
+     private ApplicationFacade(){}
     /**
      * Facade minimale: un solo metodo pubblico per inviare l'email di conferma
      * a partire dalla BookingBean (salvata in sessione).
