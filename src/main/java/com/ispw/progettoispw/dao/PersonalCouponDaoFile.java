@@ -82,7 +82,7 @@ public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
 
                 }
             } catch (IOException e) {
-                logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
+                logger.log(Level.SEVERE, "Errore dati", e);
             }
         }
     }
@@ -93,7 +93,7 @@ public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
             try (Writer w = new FileWriter(FILE_PATH)) {
                 gson.toJson(snapshot, w);
             } catch (IOException e) {
-                logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
+                logger.log(Level.SEVERE, "Errore Salvataggio", e);
             }
         }
     }
@@ -238,12 +238,4 @@ public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
                     .toList();
         }
     }
-
-
-    /**
-     * Tutti i coupon di un cliente.
-     */
-
-
-
 }
