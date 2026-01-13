@@ -1,6 +1,7 @@
 package com.ispw.progettoispw.applicationfacade;
 
 import java.math.BigDecimal;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +28,7 @@ public class PaymentService {
         logger.log(Level.INFO, "Importo: {0} {1}", new Object[]{amount, "€"});
 
         // Simuliamo una probabilità di successo del 90%
-        if( Math.random() < 0.9){
+        if( ThreadLocalRandom.current().nextDouble()  < 0.9){
             return "success";
         }
         else{return "unsuccess";}

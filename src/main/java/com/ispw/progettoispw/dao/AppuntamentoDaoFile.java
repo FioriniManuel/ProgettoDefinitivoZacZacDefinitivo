@@ -9,11 +9,13 @@ import com.ispw.progettoispw.pattern.GsonProvider;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AppuntamentoDaoFile implements GenericDao<Appuntamento> {
 
     private static final String FILE_PATH = "appuntamenti.json";
-
+    private final Logger logger = Logger.getLogger(getClass().getName());
     private final Gson gson;
     private final Object lock = new Object(); // per thread-safety basilare
     private List<Appuntamento> items;
@@ -33,7 +35,7 @@ public class AppuntamentoDaoFile implements GenericDao<Appuntamento> {
             List<Appuntamento> loaded = gson.fromJson(r, listType);
             return loaded != null ? loaded : new ArrayList<>();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
             return new ArrayList<>();
         }
     }
@@ -42,7 +44,8 @@ public class AppuntamentoDaoFile implements GenericDao<Appuntamento> {
         try (Writer w = new FileWriter(FILE_PATH)) {
             gson.toJson(items, w);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
+
         }
     }
 
