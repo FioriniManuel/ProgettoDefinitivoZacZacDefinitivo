@@ -7,8 +7,8 @@ public class Cliente extends User{
 
 
     public Cliente() {}
-    public Cliente(String nome,String email, String cognome, String numerodiTelefono,String password,String ClienteId) {
-        super(nome, email, cognome, numerodiTelefono, password,ClienteId);
+    public Cliente(String nome,String email, String cognome, String numerodiTelefono,String password,String clienteid) {
+        super(nome, email, cognome, numerodiTelefono, password,clienteid);
     }
 
     @Override

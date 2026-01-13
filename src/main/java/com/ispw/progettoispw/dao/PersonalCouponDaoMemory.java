@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListSet;
-import java.util.stream.Collectors;
+
 
 /**
  * DAO in-memory per PersonalCoupon con indici:
@@ -161,14 +161,6 @@ public class PersonalCouponDaoMemory implements GenericDao<PersonalCoupon> {
 
 
 
-    /** Tutti i coupon di un cliente. */
-    public List<PersonalCoupon> findByClient(String clientId) {
-        if (clientId == null) return List.of();
-        Set<String> ids = idsByClient.getOrDefault(clientId, Set.of());
-        return ids.stream().map(byId::get).filter(Objects::nonNull)
-                .sorted(Comparator.comparing(PersonalCoupon::getCode, Comparator.nullsLast(String::compareTo)))
-                .toList();
-    }
 
 
 

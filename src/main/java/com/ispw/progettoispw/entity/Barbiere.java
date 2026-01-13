@@ -8,8 +8,8 @@ public class Barbiere extends User {
         private boolean active = true;
 
         public Barbiere() {}
-        public Barbiere(String nome,String email, String cognome, String numerodiTelefono,String password,String BarberId,GenderCategory specializzazione) {
-            super(nome, email, cognome, numerodiTelefono, password,BarberId);
+        public Barbiere(String nome,String email, String cognome, String numerodiTelefono,String password,String barberid,GenderCategory specializzazione) {
+            super(nome, email, cognome, numerodiTelefono, password,barberid);
 
             this.specializzazione= specializzazione;
         }
