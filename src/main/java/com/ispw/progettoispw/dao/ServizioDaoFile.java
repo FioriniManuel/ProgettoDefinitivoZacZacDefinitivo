@@ -141,7 +141,7 @@ public class ServizioDaoFile implements ReadOnlyDao<Servizio> {
                     StandardCopyOption.REPLACE_EXISTING,
                     StandardCopyOption.ATOMIC_MOVE);
         } catch (IOException io) {
-            logger.log(Level.WARNING, "ERROR: salvataggio servizi.json fallito: ", io.getMessage());
+            logger.log(Level.WARNING, "ERROR: salvataggio servizi.json fallito: {0}", io.getMessage());
         }
     }
 

@@ -258,7 +258,7 @@ public class BookingController {
         a.setSlotIndex(bean.getStartTime());
         a.setSlotFin(bean.getEndTime());
         a.setBaseAmount(bean.getPrezzoTotale());
-        a.setAppliedCouponCode(bean.getCouponCode());
+        a.setAppliedCouponCode(bean.getCoupon_code());
 
         if (bean.getCanale() == PaymentChannel.IN_SHOP) {
             a.setInsede();
@@ -332,7 +332,7 @@ public class BookingController {
                     b.setEndTime(a.getSlotFin());
                     b.setPrezzoTotale(a.getBaseAmount());
                     b.setStatus(a.getStatus());
-                    b.setCouponCode(a.getAppliedCouponCode());
+                    b.setCoupon_code(a.getAppliedCouponCode());
                     b.setCanale(a.getPaymentChannel());
 
                     b.setServiziId(a.getServizio());

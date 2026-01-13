@@ -117,7 +117,7 @@ public class PagamentoGUIAlternativeController extends GraphicController {
 
             BigDecimal newTotal = couponController.previewTotalWithCoupon(couponBean, baseTotal);
             currentTotal = (newTotal == null) ? baseTotal : newTotal;
-            booking.setCouponCode(code);
+            booking.setCoupon_code(code);
 
             refreshTotalLabel();
 
@@ -137,7 +137,7 @@ public class PagamentoGUIAlternativeController extends GraphicController {
             try {
                 booking.setInsede();
                 booking.setPrezzoTotale(baseTotal);
-                booking.setCouponCode(null);
+                booking.setCoupon_code(null);
 
                 bookingController.book(booking);
                 bookingController.sendEmail(booking);
@@ -193,7 +193,7 @@ public class PagamentoGUIAlternativeController extends GraphicController {
 
             booking.setOnline();
             booking.setPrezzoTotale(currentTotal);
-            booking.setCouponCode(pb.getCouponCode());
+            booking.setCoupon_code(pb.getCouponCode());
 
             bookingController.book(booking);
 

@@ -80,7 +80,7 @@ public class PagamentoGUIController extends GraphicController {
             }
 
             currentTotal = newTotal;
-            booking.setCouponCode(code);
+            booking.setCoupon_code(code);
             refreshTotalLabel();
 
         } catch (ValidazioneException e) {
@@ -124,7 +124,7 @@ public class PagamentoGUIController extends GraphicController {
 
             booking.setOnline();
             booking.setPrezzoTotale(currentTotal);
-            booking.setCouponCode(pb.getCouponCode());
+            booking.setCoupon_code(pb.getCouponCode());
 
             bookingController.book(booking);
 
