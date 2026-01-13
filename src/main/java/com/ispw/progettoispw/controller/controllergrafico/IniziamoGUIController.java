@@ -5,12 +5,12 @@ import javafx.event.ActionEvent;
 public class IniziamoGUIController extends GraphicController {
 
 
-    public void loginButtonOnAction(ActionEvent event) {
+    public void loginButtonOnAction() {
         switchSafe("LoginView.fxml", "ZAC ZAC");
     }
 
 
-    public void prenotazioneButtonOnAction(ActionEvent event) {
+    public void prenotazioneButtonOnAction() {
         switchSafe("RegistrationView.fxml", "Registrati");
     }
 }
