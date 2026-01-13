@@ -10,7 +10,7 @@ Controllo di Code Smell, Bug e Vulnerabilità
 
 Miglioramento continuo della qualità
 
-* Tecnologie utilizzate
+* Tecnologie utilizzat
 
 Java 21
 
