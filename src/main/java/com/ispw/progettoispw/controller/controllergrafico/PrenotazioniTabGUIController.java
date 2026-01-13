@@ -19,13 +19,13 @@ import java.util.List;
 
 public class PrenotazioniTabGUIController extends GraphicController {
 
-    private static final DateTimeFormatter DF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private static final DateTimeFormatter TF = DateTimeFormatter.ofPattern("HH:mm");
+    private static final DateTimeFormatter DATEF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter TIMEF = DateTimeFormatter.ofPattern("HH:mm");
 
-    private static final String MSG_NO_APPOINTMENTS = "Nessuna prenotazione per la data selezionata.";
-    private static final String MSG_TECH_ERROR = "Errore tecnico.";
-    private static final String MSG_ALREADY_CANCELLED = "Appuntamento già cancellato.";
-    private static final String MSG_ALREADY_COMPLETED = "Appuntamento già completato.";
+    private static final String MSG_NONE_APPOINTMENTS = "Nessuna prenotazione per la data selezionata.";
+    private static final String ERROR = "Errore tecnico.";
+    private static final String CANCELLED = "Appuntamento già cancellato.";
+    private static final String COMPLETED = "Appuntamento già completato.";
     private static final String MSG_CANNOT_CANCEL_COMPLETED = "Impossibile cancellare: appuntamento già completato.";
 
     @FXML private DatePicker datePicker;
@@ -53,7 +53,7 @@ public class PrenotazioniTabGUIController extends GraphicController {
     }
 
     private void setupUi() {
-        appointmentsList.setPlaceholder(new Label(MSG_NO_APPOINTMENTS));
+        appointmentsList.setPlaceholder(new Label(MSG_NONE_APPOINTMENTS));
     }
 
     private void setupListeners() {
@@ -70,7 +70,7 @@ public class PrenotazioniTabGUIController extends GraphicController {
 
     private void setSelectedDate(LocalDate date) {
         datePicker.setValue(date);
-        dateLabel.setText(DF.format(date));
+        dateLabel.setText(DATEF.format(date));
     }
 
     private void loadAppointments(LocalDate day) {
@@ -88,8 +88,8 @@ public class PrenotazioniTabGUIController extends GraphicController {
     private void handleComplete(BookingBean b, Runnable refreshUi) {
         if (b == null) return;
 
-        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo(MSG_ALREADY_CANCELLED); return; }
-        if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo(MSG_ALREADY_COMPLETED); return; }
+        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo(CANCELLED); return; }
+        if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo(COMPLETED); return; }
 
         try {
             bookingController.updateAppointmentStatus(b.getAppointmentId(), AppointmentStatus.COMPLETED);
@@ -102,14 +102,14 @@ public class PrenotazioniTabGUIController extends GraphicController {
         } catch (ValidazioneException | OggettoInvalidoException ex) {
             showError(ex.getMessage());
         } catch (Exception ex) {
-            showError(MSG_TECH_ERROR);
+            showError(ERROR);
         }
     }
 
     private void handleCancel(BookingBean b, Runnable refreshUi) {
         if (b == null) return;
 
-        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo(MSG_ALREADY_CANCELLED); return; }
+        if (b.getStatus() == AppointmentStatus.CANCELLED) { showInfo(CANCELLED); return; }
         if (b.getStatus() == AppointmentStatus.COMPLETED) { showInfo(MSG_CANNOT_CANCEL_COMPLETED); return; }
 
         try {
@@ -120,7 +120,7 @@ public class PrenotazioniTabGUIController extends GraphicController {
         } catch (ValidazioneException | OggettoInvalidoException ex) {
             showError(ex.getMessage());
         } catch (Exception ex) {
-            showError(MSG_TECH_ERROR);
+            showError(ERROR);
         }
     }
 
@@ -192,11 +192,11 @@ public class PrenotazioniTabGUIController extends GraphicController {
 
             String start = (b.getStartTime() == null)
                     ? "--:--"
-                    : b.getStartTime().format(TF);
+                    : b.getStartTime().format(TIMEF);
 
             String end = (b.getEndTime() == null)
                     ? "--:--"
-                    : b.getEndTime().format(TF);
+                    : b.getEndTime().format(TIMEF);
 
             String range = start + "-" + end;
 
