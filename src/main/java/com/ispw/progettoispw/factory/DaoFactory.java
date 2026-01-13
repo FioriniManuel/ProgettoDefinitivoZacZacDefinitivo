@@ -11,54 +11,47 @@ import com.ispw.progettoispw.entity.*;
     private static StorageOption storage=StorageOption.FILE;
 
     // Singleton
-    private static volatile DaoFactory INSTANCE;
+    private static volatile DaoFactory instance;
 
-    private  GenericDao<Cliente> clienteDao;
-    private GenericDao<Barbiere> barbiereDao;
-    private  ReadOnlyDao<Servizio> servizioDao ;
+     private final GenericDao<Cliente> clienteDao;
+     private final GenericDao<Barbiere> barbiereDao;
+     private final ReadOnlyDao<Servizio> servizioDao;
+     private final GenericDao<Appuntamento> appuntamentoDao;
+     private final GenericDao<LoyaltyAccount> loyaltyAccountDao;
+     private final GenericDao<PersonalCoupon> personalCouponDao;
+     private final ReadOnlyDao<PrizeOption> prizeOptionDao;
 
-    private  GenericDao<Appuntamento> appuntamentoDao ;
 
-    private  GenericDao<LoyaltyAccount> loyaltyAccountDao;
-    private  GenericDao<PersonalCoupon> personalCouponDao ;
-    private  ReadOnlyDao<PrizeOption>   prizeOptionDao;
+     private DaoFactory() {
+         // inizializza una sola volta in base a storage
+         if (storage == StorageOption.INMEMORY) {
+             clienteDao        = new ClienteDaoMemory();
+             barbiereDao       = new BarbiereDaoMemory();
+             servizioDao       = new ServizioDaoMemory();
+             appuntamentoDao   = new AppuntamentoDaoMemory();
+             loyaltyAccountDao = new LoyaltyAccountDaoMemory();
+             personalCouponDao = new PersonalCouponDaoMemory();
+             prizeOptionDao    = new PrizeOptionDaoMemory();
 
-    private DaoFactory() {
-        // inizializza una sola volta in base a storage
-        switch (storage) {
-            case INMEMORY -> {
-                clienteDao        = new ClienteDaoMemory();
-                barbiereDao       = new BarbiereDaoMemory();
-                servizioDao       = new ServizioDaoMemory();
+         } else { // FILE (default)
+             clienteDao        = new ClienteDaoFile();
+             barbiereDao       = new BarbiereDaoFile();
+             servizioDao       = new ServizioDaoFile();
+             appuntamentoDao   = new AppuntamentoDaoFile();
+             loyaltyAccountDao = new LoyaltyAccountDaoFile();
+             personalCouponDao = new PersonalCouponDaoFile();
+             prizeOptionDao    = new PrizeOptionDaoFile();
+         }
+     }
 
-                appuntamentoDao   = new AppuntamentoDaoMemory();
 
-                loyaltyAccountDao = new LoyaltyAccountDaoMemory();
-                personalCouponDao = new PersonalCouponDaoMemory();
-                prizeOptionDao = new PrizeOptionDaoMemory();
-            }
-            case FILE ->{
-                clienteDao        = new ClienteDaoFile();
-                barbiereDao       = new BarbiereDaoFile();
-                servizioDao       = new ServizioDaoFile();
-
-                appuntamentoDao   = new AppuntamentoDaoFile();
-
-                loyaltyAccountDao = new LoyaltyAccountDaoFile();
-                personalCouponDao = new PersonalCouponDaoFile();
-                prizeOptionDao = new PrizeOptionDaoFile();
-
-            }
-        }
-    }
-
-    public static DaoFactory getInstance() {
-        if (INSTANCE == null) {
+     public static DaoFactory getInstance() {
+        if (instance == null) {
             synchronized (DaoFactory.class) {
-                if (INSTANCE == null) INSTANCE = new DaoFactory();
+                if (instance == null) instance = new DaoFactory();
             }
         }
-        return INSTANCE;
+        return instance;
     }
 
     // getters: ora restituiscono sempre le stesse istanze
@@ -73,7 +66,7 @@ import com.ispw.progettoispw.entity.*;
      @Override public ReadOnlyDao<PrizeOption>  getPrizeOptionDao() {return prizeOptionDao;}
 
     public  static void setStorageOption(StorageOption option) {
-        if (option != null && INSTANCE == null) {
+        if (option != null && instance == null) {
             storage = option; // deve essere impostato PRIMA della prima getInstance()
         }
     }
