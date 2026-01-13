@@ -27,7 +27,7 @@ public class PaymentService {
         logger.log(Level.INFO,"Controllo CVV: {0}",cvv);
         logger.log(Level.INFO, "Importo: {0} {1}", new Object[]{amount, "€"});
 
-        // Simuliamo una probabilità di successo del 90%
+        // Simulazione probabilistica: non legata a sicurezza
         if( ThreadLocalRandom.current().nextDouble()  < 0.9){
             return "success";
         }
