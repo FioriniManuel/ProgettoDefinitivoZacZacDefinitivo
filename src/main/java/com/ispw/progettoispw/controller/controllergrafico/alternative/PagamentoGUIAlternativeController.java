@@ -132,44 +132,42 @@ public class PagamentoGUIAlternativeController extends GraphicController {
     private void onPay() {
         hideError();
 
-        // ===== IN SEDE =====
         if (pagaInSede.isSelected()) {
-            try {
-                booking.setInsede();
-                booking.setPrezzoTotale(baseTotal);
-                booking.setCouponcode(null);
-
-                bookingController.book(booking);
-                bookingController.sendEmail(booking);
-                bookingController.clearBookingFromSession();
-
-                showInfo("Prenotazione registrata! Pagherai in sede.");
-                switchSafe("HomeViewAlternative.fxml", "Home");
-                return;
-
-            } catch (ValidazioneException | OggettoInvalidoException e) {
-                showError(e.getMessage());
-            } catch (ConflittoPrenotazioneException e) {
-                showError("Lo slot selezionato non è più disponibile. Torna indietro e scegli un altro orario.");
-            } catch (Exception ex) {
-                showError("Errore tecnico. Riprova.");
-            }
-            return;
+            handlePayInSede();
+        } else {
+            handlePayOnline();
         }
+    }
 
-        // ===== ONLINE =====
-        PaymentBean pb = new PaymentBean();
-        pb.setCardHolderName(safeText(cardHolderField));
-        pb.setCardNumber(safeText(cardNumberField));
-        pb.setExpiry(safeText(expiryField));
-        pb.setCvv(safeText(cvvField));
-        pb.setCouponCode(safeText(couponField));
-        pb.setAmount(currentTotal);
+    private void handlePayInSede() {
+        try {
+            booking.setInsede();
+            booking.setPrezzoTotale(baseTotal);
+            booking.setCouponcode(null);
+
+            bookingController.book(booking);
+            bookingController.sendEmail(booking);
+            bookingController.clearBookingFromSession();
+
+            showInfo("Prenotazione registrata! Pagherai in sede.");
+            switchSafe("HomeViewAlternative.fxml", "Home");
+
+        } catch (ValidazioneException | OggettoInvalidoException e) {
+            showError(e.getMessage());
+        } catch (ConflittoPrenotazioneException e) {
+            showError("Lo slot selezionato non è più disponibile. Torna indietro e scegli un altro orario.");
+        } catch (Exception ex) {
+            showError("Errore tecnico. Riprova.");
+        }
+    }
+
+    private void handlePayOnline() {
+        PaymentBean pb = buildPaymentBean();
 
         List<String> errs = pb.validate();
         if (!errs.isEmpty()) {
             showError(String.join("\n", errs));
-            return;
+            return; // return "vero": evita di proseguire col pagamento se i dati sono invalidi
         }
 
         try {
@@ -181,31 +179,11 @@ public class PagamentoGUIAlternativeController extends GraphicController {
                     pb.getAmount()
             );
 
-            if (!"success".equalsIgnoreCase(result)) {
-                showError(switch (result) {
-                    case "error:card_declined" -> "Carta rifiutata.";
-                    case "error:coupon_invalid" -> "Coupon non valido al pagamento.";
-                    case "error:slot_taken" -> "Orario non più disponibile.";
-                    default -> "Errore durante il pagamento.";
-                });
-                return;
+            if (!isPaymentSuccess(result)) {
+                showError(mapPaymentError(result));
+            } else {
+                finalizeOnlineBooking(pb);
             }
-
-            booking.setOnline();
-            booking.setPrezzoTotale(currentTotal);
-            booking.setCouponcode(pb.getCouponCode());
-
-            bookingController.book(booking);
-
-            if (couponBean.getCouponCode() != null && !couponBean.getCouponCode().isBlank()) {
-                couponController.markCouponUsed(couponBean.getCouponCode(), booking.getClienteId());
-            }
-
-            bookingController.sendEmail(booking);
-            bookingController.clearBookingFromSession();
-
-            showInfo("Pagamento completato e prenotazione confermata!");
-            switchSafe("HomeViewAlternative.fxml", "Home");
 
         } catch (ValidazioneException | OggettoInvalidoException e) {
             showError(e.getMessage());
@@ -215,6 +193,53 @@ public class PagamentoGUIAlternativeController extends GraphicController {
             showError("Errore tecnico. Riprova.");
         }
     }
+
+    private PaymentBean buildPaymentBean() {
+        PaymentBean pb = new PaymentBean();
+        pb.setCardHolderName(safeText(cardHolderField));
+        pb.setCardNumber(safeText(cardNumberField));
+        pb.setExpiry(safeText(expiryField));
+        pb.setCvv(safeText(cvvField));
+        pb.setCouponCode(safeText(couponField));
+        pb.setAmount(currentTotal);
+        return pb;
+    }
+
+    private boolean isPaymentSuccess(String result) {
+        return result != null && "success".equalsIgnoreCase(result);
+    }
+
+    private String mapPaymentError(String result) {
+        if (result == null) return "Errore durante il pagamento.";
+        return switch (result.toLowerCase()) {
+            case "error:card_declined" -> "Carta rifiutata.";
+            case "error:coupon_invalid" -> "Coupon non valido al pagamento.";
+            case "error:slot_taken" -> "Orario non più disponibile.";
+            default -> "Errore durante il pagamento.";
+        };
+    }
+
+    private void finalizeOnlineBooking(PaymentBean pb)
+            throws ValidazioneException, OggettoInvalidoException, ConflittoPrenotazioneException {
+
+        booking.setOnline();
+        booking.setPrezzoTotale(currentTotal);
+        booking.setCouponcode(pb.getCouponCode());
+
+        bookingController.book(booking);
+
+        String usedCoupon = (couponBean == null) ? null : couponBean.getCouponCode();
+        if (usedCoupon != null && !usedCoupon.isBlank()) {
+            couponController.markCouponUsed(usedCoupon, booking.getClienteId());
+        }
+
+        bookingController.sendEmail(booking);
+        bookingController.clearBookingFromSession();
+
+        showInfo("Pagamento completato e prenotazione confermata!");
+        switchSafe("HomeViewAlternative.fxml", "Home");
+    }
+
 
     @FXML
     private void onBack() {

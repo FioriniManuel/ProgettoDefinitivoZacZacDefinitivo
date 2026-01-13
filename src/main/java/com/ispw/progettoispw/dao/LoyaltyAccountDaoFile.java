@@ -52,17 +52,22 @@ public class LoyaltyAccountDaoFile implements GenericDao<LoyaltyAccount> {
                 List<LoyaltyAccount> list = gson.fromJson(r, listType);
                 if (list != null) {
                     for (LoyaltyAccount acc : list) {
-                        if (acc == null) continue;
-                        String id = acc.getLoyaltyaccountid();
-                        String clientId = acc.getClientId();
-                        if (id == null || id.isBlank() || clientId == null || clientId.isBlank()) {
-                            // ignoro record malformati
-                            continue;
+                        if (acc != null) {
+                            String id = acc.getLoyaltyaccountid();
+                            String clientId = acc.getClientId();
+
+                            boolean valid =
+                                    id != null && !id.isBlank()
+                                            && clientId != null && !clientId.isBlank();
+
+                            if (valid) {
+                                byId.put(id, acc);
+                                // in caso di duplicati clientId nel file, mantiene l'ultimo
+                                idByClient.put(clientId, id);
+                            }
                         }
-                        byId.put(id, acc);
-                        // in caso di duplicati clientId nel file, mantiene l'ultimo
-                        idByClient.put(clientId, id);
                     }
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
