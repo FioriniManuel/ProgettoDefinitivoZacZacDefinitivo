@@ -156,7 +156,7 @@ public class PersonalCouponDaoMemory implements GenericDao<PersonalCoupon> {
     public List<PersonalCoupon> readAll() {
         return byId.values().stream()
                 .sorted(Comparator.comparing(PersonalCoupon::getCode, Comparator.nullsLast(String::compareTo)))
-                .collect(Collectors.toUnmodifiableList());
+                 .toList();
     }
 
 
@@ -167,7 +167,7 @@ public class PersonalCouponDaoMemory implements GenericDao<PersonalCoupon> {
         Set<String> ids = idsByClient.getOrDefault(clientId, Set.of());
         return ids.stream().map(byId::get).filter(Objects::nonNull)
                 .sorted(Comparator.comparing(PersonalCoupon::getCode, Comparator.nullsLast(String::compareTo)))
-                .collect(Collectors.toUnmodifiableList());
+                .toList();
     }
 
 
