@@ -1,14 +1,45 @@
 package com.ispw.progettoispw.controller.controllergrafico;
 
+import com.ispw.progettoispw.bean.BookingBean;
 import com.ispw.progettoispw.exception.ViewLoadException;
 import com.ispw.progettoispw.pattern.WindowManager;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 
+import java.time.format.DateTimeFormatter;
+
 public abstract class GraphicController {
 
     protected GraphicController() {
+    }
+    protected static final DateTimeFormatter TIMEF = DateTimeFormatter.ofPattern("HH:mm");
+
+    // GraphicController.java
+    protected String formatBookingRow(BookingBean b) {
+        String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
+                ? b.getServiceName()
+                : "Servizio";
+
+        String start = (b.getStartTime() == null)
+                ? "--:--"
+                : b.getStartTime().format(TIMEF);
+
+        String end = (b.getEndTime() == null)
+                ? "--:--"
+                : b.getEndTime().format(TIMEF);
+
+        String range = start + "-" + end;
+
+        String price = (b.getPrezzoTotale() == null)
+                ? "-"
+                : (b.getPrezzoTotale().toPlainString() + " €");
+
+        String stato = (b.getStatus() == null)
+                ? "-"
+                : b.getStatus().name();
+
+        return nomeServizio + " | " + range + " | " + price + " | " + stato;
     }
 
     public static void showAlert(String msg){

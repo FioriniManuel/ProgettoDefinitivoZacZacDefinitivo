@@ -165,7 +165,7 @@ public class PrenotazioniTabGUIController extends GraphicController {
                 return;
             }
 
-            lbl.setText(buildRowText(b));
+            lbl.setText(formatBookingRow(b));
             updateButtons(b);
             setGraphic(box);
         }
@@ -185,31 +185,7 @@ public class PrenotazioniTabGUIController extends GraphicController {
                     || status == AppointmentStatus.COMPLETED;
         }
 
-        private String buildRowText(BookingBean b) {
-            String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
-                    ? b.getServiceName()
-                    : "Servizio";
 
-            String start = (b.getStartTime() == null)
-                    ? "--:--"
-                    : b.getStartTime().format(TIMEF);
-
-            String end = (b.getEndTime() == null)
-                    ? "--:--"
-                    : b.getEndTime().format(TIMEF);
-
-            String range = start + "-" + end;
-
-            String price = (b.getPrezzoTotale() == null)
-                    ? "-"
-                    : (b.getPrezzoTotale().toPlainString() + " €");
-
-            String stato = (b.getStatus() == null)
-                    ? "-"
-                    : b.getStatus().name();
-
-            return nomeServizio + " | " + range + " | " + price + " | " + stato;
-        }
     }
 
 

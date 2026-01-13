@@ -130,7 +130,7 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
                 return;
             }
 
-            lbl.setText(buildRowText(b));
+            lbl.setText(formatBookingRow(b));
             updateButtons(b);
             setGraphic(box);
         }
@@ -146,23 +146,7 @@ public class HomeBarbiereGUIAlternativeController extends GraphicController {
             return status == AppointmentStatus.CANCELLED || status == AppointmentStatus.COMPLETED;
 
         }
-        private String buildRowText(BookingBean b) {
-            String nomeServizio = (b.getServiceName() != null && !b.getServiceName().isBlank())
-                    ? b.getServiceName()
-                    : "Servizio";
 
-            String range = (b.getStartTime() == null || b.getEndTime() == null)
-                    ? "-"
-                    : (b.getStartTime().format(TF) + "-" + b.getEndTime().format(TF));
-
-            String price = (b.getPrezzoTotale() == null)
-                    ? "-"
-                    : (b.getPrezzoTotale().toPlainString() + " €");
-
-            String stato = (b.getStatus() == null) ? "-" : b.getStatus().name();
-
-            return nomeServizio + " | " + range + " | " + price + " | " + stato;
-        }
     }
 
     private void onComplete(BookingBean b, Runnable refreshUi) {

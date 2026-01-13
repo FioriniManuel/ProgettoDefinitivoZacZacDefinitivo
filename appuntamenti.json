@@ -113,5 +113,19 @@
     "appliedCouponCode": "",
     "paymentChannel": "ONLINE",
     "servizio": "BARBA"
+  },
+  {
+    "id": "d772b7a9-fb70-4ad1-873d-65c8131352f0",
+    "clientId": "a81f155e-7c48-471a-a5df-c7cc9dee129d",
+    "barberId": "bc64aa76-3964-41cc-afd2-ffe6f8ae437b",
+    "date": "2026-01-13",
+    "slotInit": "08:00",
+    "slotFin": "09:00",
+    "status": "CANCELLED",
+    "baseAmount": 25.00,
+    "discountAmount": 0,
+    "total": 25.00,
+    "paymentChannel": "IN_SHOP",
+    "servizio": "TAGLIO+BARBA+SHAMPOO"
   }
 ]
