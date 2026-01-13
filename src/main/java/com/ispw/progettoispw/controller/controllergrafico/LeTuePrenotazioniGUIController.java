@@ -116,7 +116,7 @@ public class LeTuePrenotazioniGUIController extends GraphicController {
         String inizio = formatTime(b.getStartTime());
         String fine = formatTime(b.getEndTime());
         String prezzo = formatPrice(b.getPrezzoTotale());
-        String coupon = defaultIfBlank(b.getCoupon_code(), "-");
+        String coupon = defaultIfBlank(b.getCouponcode(), "-");
         String stato = (b.getStatus() == null) ? "-" : b.getStatus().name();
 
         return service + " | " + data + " " + inizio + "-" + fine

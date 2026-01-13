@@ -133,7 +133,7 @@ public class AreaPersonaleGUIAlternativeController extends GraphicController {
         String prezzo = formatPrice(b.getPrezzoTotale());
         String stato  = (b.getStatus() == null) ? "-" : b.getStatus().name();
         String svc    = defaultIfBlank(b.getServiceName(), "Servizio");
-        String coupon = defaultIfBlank(b.getCoupon_code(), "-");
+        String coupon = defaultIfBlank(b.getCouponcode(), "-");
 
         return svc + " | " + data + " " + inizio + "-" + fine
                 + " | Prezzo: " + prezzo + " | Coupon: " + coupon + " | Stato: " + stato;

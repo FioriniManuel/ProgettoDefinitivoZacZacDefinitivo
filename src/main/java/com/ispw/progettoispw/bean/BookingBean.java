@@ -34,7 +34,7 @@ public class BookingBean {
 
     private GenderCategory categoria;
     private PaymentChannel canale;
-    private String coupon_code;
+    private String couponcode;
 
     private AppointmentStatus status;
 
@@ -78,12 +78,12 @@ public class BookingBean {
         this.prezzoTotale = (prezzoTotale == null) ? BigDecimal.ZERO : prezzoTotale;
     }
 
-    public String getCoupon_code() {
-        return coupon_code;
+    public String getCouponcode() {
+        return couponcode;
     }
 
-    public void setCoupon_code(String coupon_code) {
-        this.coupon_code = coupon_code;
+    public void setCouponcode(String couponcode) {
+        this.couponcode = couponcode;
     }
 
     public GenderCategory getCategoria() { return categoria; }
