@@ -9,11 +9,13 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PrizeOptionDaoFile implements ReadOnlyDao<PrizeOption> {
 
     private static final String FILE_PATH = "prize_options.json";
-
+    private final Logger logger = Logger.getLogger(getClass().getName());
     private final Map<String, PrizeOption> byId = new LinkedHashMap<>();
     private final Gson gson;
 
@@ -71,7 +73,7 @@ public class PrizeOptionDaoFile implements ReadOnlyDao<PrizeOption> {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
         }
     }
 
@@ -79,7 +81,7 @@ public class PrizeOptionDaoFile implements ReadOnlyDao<PrizeOption> {
         try (Writer writer = new FileWriter(FILE_PATH)) {
             gson.toJson(byId.values(), writer);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
         }
     }
 

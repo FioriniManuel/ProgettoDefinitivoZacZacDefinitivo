@@ -11,6 +11,8 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -23,7 +25,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
  * Persistenza: JSON su personal_coupons.json
  */
 public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
-
+    private final Logger logger = Logger.getLogger(getClass().getName());
     private static final String FILE_PATH = "personal_coupons.json";
 
     /* ===== Indici in memoria ===== */
@@ -80,7 +82,7 @@ public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
 
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
             }
         }
     }
@@ -91,7 +93,7 @@ public class PersonalCouponDaoFile implements GenericDao<PersonalCoupon> {
             try (Writer w = new FileWriter(FILE_PATH)) {
                 gson.toJson(snapshot, w);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
             }
         }
     }

@@ -9,6 +9,8 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * DAO file-based per LoyaltyAccount.
@@ -22,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * gli indici sono ricostruiti da file all'avvio e mantenuti allineati a runtime.
  */
 public class LoyaltyAccountDaoFile implements GenericDao<LoyaltyAccount> {
-
+    private final Logger logger = Logger.getLogger(getClass().getName());
     private static final String FILE_PATH = "loyalty_accounts.json";
 
     // Stato in memoria
@@ -70,7 +72,7 @@ public class LoyaltyAccountDaoFile implements GenericDao<LoyaltyAccount> {
 
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
             }
         }
     }
@@ -81,7 +83,7 @@ public class LoyaltyAccountDaoFile implements GenericDao<LoyaltyAccount> {
             try (Writer w = new FileWriter(FILE_PATH)) {
                 gson.toJson(list, w);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
             }
         }
     }

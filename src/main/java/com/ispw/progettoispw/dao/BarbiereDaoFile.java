@@ -11,12 +11,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BarbiereDaoFile implements GenericDao<Barbiere> {
     private static final String FILE_PATH = "barbiere.json";
     private final Gson gson;
     private List<Barbiere> barbiere;
-
+    private final Logger logger = Logger.getLogger(getClass().getName());
     public BarbiereDaoFile() {
         this.gson = GsonProvider.get();
         barbiere = loadFromFile();
@@ -33,7 +35,7 @@ public class BarbiereDaoFile implements GenericDao<Barbiere> {
             List<Barbiere> loadedClients = gson.fromJson(reader, listType);
             return loadedClients != null ? loadedClients : new ArrayList<>();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
             return new ArrayList<>();
         }
     }
@@ -42,7 +44,7 @@ public class BarbiereDaoFile implements GenericDao<Barbiere> {
         try (Writer writer = new FileWriter(FILE_PATH)) {
             gson.toJson(barbiere, writer);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
         }
     }
 

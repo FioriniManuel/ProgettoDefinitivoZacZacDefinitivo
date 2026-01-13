@@ -10,12 +10,14 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClienteDaoFile implements GenericDao<Cliente> {
     private static final String FILE_PATH = "clients.json";
     private final Gson gson;
     private List<Cliente> clients;
-
+    private final Logger logger = Logger.getLogger(getClass().getName());
     public ClienteDaoFile() {
         this.gson = GsonProvider.get();
         clients = loadFromFile();
@@ -32,7 +34,7 @@ public class ClienteDaoFile implements GenericDao<Cliente> {
             List<Cliente> loadedClients = gson.fromJson(reader, listType);
             return loadedClients != null ? loadedClients : new ArrayList<>();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
             return new ArrayList<>();
         }
     }
@@ -41,7 +43,7 @@ public class ClienteDaoFile implements GenericDao<Cliente> {
         try (Writer writer = new FileWriter(FILE_PATH)) {
             gson.toJson(clients, writer);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Errore durante la lettura dei dati", e);
         }
     }
 
