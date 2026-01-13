@@ -100,7 +100,8 @@ public class LoginController {
         );
 
         SessionManager.getInstance().login(session);
-        logger.info("Login OK: " + user.getEmail() + " (" + role + ") " + user.getId());
+        logger.info(String.format("Login OK: %s (%s) %s", user.getEmail(), role, user.getId()));
+
     }
 
     private static String normalizeEmail(String email) {
